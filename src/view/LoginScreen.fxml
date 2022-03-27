@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreen">
    <children>
       <Label layoutX="100.0" layoutY="46.0" text="Please Login">
@@ -16,7 +15,8 @@
       <Label fx:id="PasswordLabel" layoutX="52.0" layoutY="150.0" text="Password:" />
       <TextField fx:id="UserNameTextField" layoutX="125.0" layoutY="105.0" />
       <TextField fx:id="PasswordTextField" layoutX="125.0" layoutY="146.0" />
-      <Button fx:id="SubmitButton" layoutX="70.0" layoutY="230.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="SubmitButton" layoutX="70.0" layoutY="230.0" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Submit" />
       <Button fx:id="CancelButton" layoutX="173.0" layoutY="230.0" mnemonicParsing="false" text="Cancel" />
+      <Label fx:id="TheLabel" layoutX="52.0" layoutY="192.0" text="Label" />
    </children>
 </AnchorPane>
