@@ -4,19 +4,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreen">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreenController">
    <children>
       <Label layoutX="100.0" layoutY="46.0" text="Please Login">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="UserNameLabel" layoutX="52.0" layoutY="109.0" text="UserName:" />
-      <Label fx:id="PasswordLabel" layoutX="52.0" layoutY="150.0" text="Password:" />
-      <TextField fx:id="UserNameTextField" layoutX="125.0" layoutY="105.0" />
-      <TextField fx:id="PasswordTextField" layoutX="125.0" layoutY="146.0" />
-      <Button fx:id="SubmitButton" layoutX="70.0" layoutY="230.0" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Submit" />
-      <Button fx:id="CancelButton" layoutX="173.0" layoutY="230.0" mnemonicParsing="false" text="Cancel" />
-      <Label fx:id="TheLabel" layoutX="52.0" layoutY="192.0" text="Label" />
+      <Label fx:id="UserNameLbl" layoutX="52.0" layoutY="109.0" text="UserName:" />
+      <Label fx:id="PasswordLbl" layoutX="52.0" layoutY="150.0" text="Password:" />
+      <TextField fx:id="UserNameTxt" layoutX="125.0" layoutY="105.0" />
+      <TextField fx:id="PasswordTxt" layoutX="125.0" layoutY="146.0" />
+      <Button fx:id="SubmitBtn" layoutX="70.0" layoutY="230.0" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Submit" />
+      <Button fx:id="CancelBtn" layoutX="173.0" layoutY="230.0" mnemonicParsing="false" onAction="#onActionExit" text="Cancel" />
+      <Label fx:id="TheLabel" layoutX="125.0" layoutY="191.0" text="Label" />
+      <Label layoutX="52.0" layoutY="191.0" text="Location:" />
    </children>
 </AnchorPane>
