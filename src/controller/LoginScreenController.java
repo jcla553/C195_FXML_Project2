@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -29,11 +30,39 @@ public class LoginScreenController implements Initializable {
     @FXML
     private TextField PasswordTxt;
 
+    @FXML
+    private Label titleLbl;
+
+    @FXML
+    private Label UserNameLbl;
+
+    @FXML
+    private Label PasswordLbl;
+
+    @FXML
+    private Label LocationLbl;
+
+    @FXML
+    private Button SubmitBtn;
+
+    @FXML
+    private Button CancelBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("I am initialized!");
+        System.out.println("LoginScreen initialized!");
         TheLabel.setText("Initialized!");
         TheLabel.setText(String.valueOf(Locale.getDefault()));
+
+        ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
+
+        titleLbl.setText(rb.getString("titleLbl"));
+        UserNameLbl.setText(rb.getString("UserNameLbl"));
+        PasswordLbl.setText(rb.getString("PasswordLbl"));
+        LocationLbl.setText(rb.getString("LocationLbl"));
+        SubmitBtn.setText(rb.getString("SubmitBtn"));
+        CancelBtn.setText(rb.getString("CancelBtn"));
+
     }
 
     /**
@@ -42,6 +71,10 @@ public class LoginScreenController implements Initializable {
      */
     public void onSubmitButtonAction(ActionEvent actionEvent) {
         System.out.println("I am clicked");
+
+        ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
+
+        // check for values in both fields.
 
         isLoginFieldEmpty("UserName", UserNameTxt.getText());
         isLoginFieldEmpty("Password", PasswordTxt.getText());
@@ -54,7 +87,7 @@ public class LoginScreenController implements Initializable {
             System.out.println("isValid = " + isValid);
 
         if (isValid < 0) {
-            popupError("Invalid login attempt. Please retry.");
+            popupError(rb.getString("loginErrorMsg"));
         }
 
         // TODO  this is from class demo, was used to test database connection
@@ -82,8 +115,10 @@ public class LoginScreenController implements Initializable {
      * @param text The value provided
      */
     private void isLoginFieldEmpty(String field, String text) {
+        ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
+
         if (text.isEmpty()) {
-            popupError(field + " must contain a value. Please retry.");
+            popupError(rb.getString(field + "Lbl") + " " + rb.getString("loginFieldEmpty"));
         }
     }
 
@@ -102,8 +137,10 @@ public class LoginScreenController implements Initializable {
      */
     @FXML
     public void popupError(String contentText) {
+        ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
+
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Dialog");
+        alert.setTitle(rb.getString("ErrorDialog"));
         alert.setContentText(contentText);
         alert.showAndWait();
     }
