@@ -11,3 +11,6 @@ IDE including version number
 	IntelliJ 2021.1.3 (Community Version)
 	Java 17.0.2
 	openjfx-17.0.2_windows-x64_bin-sdk
+
+MySQL Connector Driver version number including the update number
+    mysql-connector-java-8.0.25
