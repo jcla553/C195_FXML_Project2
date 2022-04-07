@@ -10,9 +10,14 @@ import java.sql.SQLException;
 
 public class DBUsers {
 
+    /**
+     * Obtain list of all records from users table.
+     * @return userList The list of all users. This is here for completeness, but a bad idea security wise real world.
+     *      Especially with the passwords not stored in a hash.
+     */
     public static ObservableList<Users> getAllUsers(){
 
-        ObservableList<Users> userlist = FXCollections.observableArrayList();
+        ObservableList<Users> userList = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * FROM users";
@@ -30,16 +35,24 @@ public class DBUsers {
                 String password = rs.getString("Password");
                 Users U = new Users(userId, userName, password);
                 // add the result to the list
-                userlist.add(U);
+                userList.add(U);
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return userlist;
+        return userList;
     }
 
+    /**
+     * Check if granting access is appropriate. This could return a boolean, but
+     * then a separate call would be needed to get the User_ID for appointments.
+     *
+     * @param userName The account identifier provided by the user.
+     * @param password The password provided by the user.
+     * @return return integer value User_ID if valid, -1 if not.
+     */
     public static int validateLogin(String userName, String password){
 
         // Create the query

@@ -30,7 +30,7 @@ public class Users {
     }
 
     /**
-     * Set the UserId
+     * Set the UserId.
      * @param userId The ID value to set.
      */
     public void setUserId(int userId) {
