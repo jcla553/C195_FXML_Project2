@@ -5,8 +5,10 @@ import database.DBCountries;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Countries;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -66,10 +69,23 @@ public class LoginScreenController implements Initializable {
     }
 
     /**
-     * Authenticate login
-     * @param actionEvent
+     * Simplified navigation
+     * @param event button click is passed along.
+     * @param fxmlPagePath The target .fmxl file.
+     * @throws IOException Exception is thrown if file not available.
      */
-    public void onSubmitButtonAction(ActionEvent actionEvent) {
+    public void gotoPage(ActionEvent event, String fxmlPagePath) throws IOException {
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource(fxmlPagePath));
+        stage.setScene(new Scene(scene));
+    }
+
+    /**
+     * Authenticate login
+     * @param event
+     * @throws IOException if target .fxml is missing.
+     */
+    public void onSubmitButtonAction(ActionEvent event) throws IOException{
         System.out.println("I am clicked");
 
         ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
@@ -86,7 +102,10 @@ public class LoginScreenController implements Initializable {
         int isValid = DBUsers.validateLogin(UserNameTxt.getText(), PasswordTxt.getText());
             System.out.println("isValid = " + isValid);
 
-        if (isValid < 0) {
+        if (isValid == 1) {
+            // go to the Main Page
+            gotoPage(event, "/view/MainPage.fxml");
+        } else if (isValid <= 0) {
             popupError(rb.getString("loginErrorMsg"));
         }
 
