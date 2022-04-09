@@ -1,6 +1,5 @@
 package database;
 
-import database.DBConnection;
 import model.Countries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,9 +8,13 @@ import java.sql.*;
 
 public class DBCountries {
 
+    /**
+     * This returns all of the countries used to populate the country combo box.
+     * @return The list of Countries
+     */
     public static ObservableList<Countries> getAllCountries(){
 
-        ObservableList<Countries> clist = FXCollections.observableArrayList();
+        ObservableList<Countries> cList = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * FROM countries";
@@ -28,13 +31,13 @@ public class DBCountries {
                 String countryName = rs.getString("Country");
                 Countries C = new Countries(countryId, countryName);
                 // add the result to the list
-                clist.add(C);
+                cList.add(C);
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return clist;
+        return cList;
     }
 }

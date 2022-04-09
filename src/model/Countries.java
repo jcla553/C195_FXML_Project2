@@ -9,7 +9,27 @@ public class Countries {
         this.name = name;
     }
 
-    public int getId() { return id; }
+    /**
+     * Get the ID value of the country.
+     * @return the ID.
+     */
+    public int getId() {
+        return id;
+    }
 
-    public String getName() {return name; }
+    /**
+     * Get the Name of the country.
+     * @return The name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * returns the data rather than the hex value for the combo box.
+     * @return The country name.
+     */
+    public String toString() {
+        return name;
+    }
 }
