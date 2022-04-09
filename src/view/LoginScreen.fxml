@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="372.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreenController">
-   <Label fx:id="titleLbl" layoutX="100.0" layoutY="46.0" text="Please Login">
+   <Label fx:id="titleLbl" layoutX="100.0" layoutY="46.0" text="C195 Scheduling App">
       <font>
          <Font size="18.0"/>
       </font>

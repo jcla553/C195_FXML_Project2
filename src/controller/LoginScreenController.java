@@ -82,7 +82,7 @@ public class LoginScreenController implements Initializable {
 
     /**
      * Authenticate login
-     * @param event
+     * @param event button clicked
      * @throws IOException if target .fxml is missing.
      */
     public void onSubmitButtonAction(ActionEvent event) throws IOException{
@@ -109,23 +109,6 @@ public class LoginScreenController implements Initializable {
             popupError(rb.getString("loginErrorMsg"));
         }
 
-        // TODO  this is from class demo, was used to test database connection
-//        ObservableList<Countries> countryList = DBCountries.getAllCountries();
-//        for(Countries C : countryList) {
-//            System.out.println("Country ID : " + C.getId() + " Name : " + C.getName());
-//        }
-
-    }
-
-    /**
-     * Query the database to verify the credentials match.
-     * @param userName
-     * @param password
-     * @return
-     */
-    public boolean validateLogin(String userName, String password) {
-        // TODO call DBUsers database class to get list of users / passwords.
-        return true; // TODO fix this return
     }
 
     /**

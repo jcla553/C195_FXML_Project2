@@ -1,7 +1,6 @@
 /** @author James Clark
  * C195 - Software II - Advanced Java Concepts
  */
-
 package main;
 
 import database.DBConnection;
@@ -29,7 +28,7 @@ public class Main extends Application {
 //    new myDefaultLocale Locale = java.util.Locale.getDefault();
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
-        stage.setTitle("Login Screen");
+        stage.setTitle("C195 Scheduling App");
         stage.setTitle(rb.getString("title"));
         stage.setScene(new Scene(root, 500, 500));
         stage.show();
