@@ -1,5 +1,9 @@
 package model;
 
+import database.DBCustomers;
+
+import static database.DBCustomers.getAllCustomers;
+
 /**
  * This model class creates the Customers constructor, and all of the getters and setters.
  */
@@ -15,6 +19,8 @@ public class Customers {
     private String lastUpdatedBy;
     private int divisionId;
 
+    private String division;
+
     /**
      * Basic constructor, using all of the fields of this model.
      * @param customerId The primary key of the Customers table.
@@ -29,7 +35,7 @@ public class Customers {
      * @param divisionId The state or province location info.
      */
     public Customers(int customerId, String customerName, String address, String postalCode, String phone,
-                 String createdDate, String createdBy, String lastUpdate, String lastUpdatedBy, int divisionId) {
+                 String createdDate, String createdBy, String lastUpdate, String lastUpdatedBy, int divisionId, String division) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.address = address;
@@ -40,8 +46,7 @@ public class Customers {
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
         this.divisionId = divisionId;
-
-
+        this.division = division;
     }
 
     /**
@@ -202,5 +207,21 @@ public class Customers {
      */
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
+    }
+
+    /**
+     * Set the division value. The lookup of the State / Province
+     * @return The Division ('Alaska').
+     */
+    public String getDivision() {
+        return division;
+    }
+
+    /**
+     * Set the division value. The lookup of State / Province
+     * @param division is the description from the ID.
+     */
+    public void setDivision(String division) {
+        this.division = division;
     }
 }

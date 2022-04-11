@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="addCustomerAnchorPane" prefHeight="384.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditCustomerController">
+<AnchorPane fx:id="addCustomerAnchorPane" prefHeight="384.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditCustomerController">
     <GridPane layoutX="14.0" layoutY="57.0" prefHeight="212.0" prefWidth="331.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -34,20 +34,22 @@
         <Label text="State / Division" GridPane.rowIndex="3" />
         <ComboBox fx:id="divisionsComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
     </GridPane>
-   <Button fx:id="SaveBtn" layoutX="216.0" layoutY="310.0" mnemonicParsing="false" onAction="#onSaveButtonAction" text="Save" />
+   <Button fx:id="DeleteBtn" layoutX="230.0" layoutY="310.0" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Delete" />
    <Button fx:id="CancelBtn" layoutX="293.0" layoutY="310.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
    <Label layoutX="26.0" layoutY="14.0" text="Modify Customer">
       <font>
          <Font name="System Bold" size="18.0" />
       </font>
    </Label>
-   <TableView fx:id="editCustomerTableView" layoutX="365.0" layoutY="57.0" prefHeight="290.0" prefWidth="555.0">
+   <TableView fx:id="editCustomerTableView" layoutX="365.0" layoutY="57.0" onMouseClicked="#onRecordSelection" prefHeight="290.0">
        <columns>
            <TableColumn fx:id="customerNameCol" prefWidth="155.0" text="Name" />
            <TableColumn fx:id="addressCol" prefWidth="150.0" text="Address" />
            <TableColumn fx:id="postalCodeCol" prefWidth="95.0" text="Postal_Code" />
            <TableColumn fx:id="phoneCol" prefWidth="80.0" text="Phone_No." />
            <TableColumn fx:id="divisionIDCol" prefWidth="80.0" text="Division_ID" />
+           <TableColumn fx:id="divisionCol" prefWidth="80.0" text="Division" />
        </columns>
    </TableView>
+   <Button fx:id="SaveBtn" layoutX="176.0" layoutY="310.0" mnemonicParsing="false" onAction="#onSaveButtonAction" text="Save" />
 </AnchorPane>

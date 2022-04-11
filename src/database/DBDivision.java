@@ -1,5 +1,8 @@
 package database;
 
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 import model.Division;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,6 +79,32 @@ public class DBDivision {
         return dList;
     }
 
+//    public static String getSpecificDivision(int specificDivision) {
+//        ObservableList<Division> dList = FXCollections.observableArrayList();
+//
+//        try {
+//            String sql = "SELECT Division FROM first_level_divisions where Division_ID = " + specificDivision;
+//
+//            // connects to database
+//            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+//
+//            // gets the results set
+//            ResultSet rs = ps.executeQuery();
+//
+//            // get result
+//            rs.next();
+//
+//            //                Division D = new Division(divisionName);
+//                // add the result to the list
+////                dList.add(D);
+//
+//            return rs.getString(("Division"));
+//
+//        } catch(SQLException throwables){
+//            throwables.printStackTrace();
+//        }
+//
+//    }
 }
 
 
