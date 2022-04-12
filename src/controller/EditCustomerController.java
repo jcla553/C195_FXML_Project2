@@ -110,10 +110,28 @@ public class EditCustomerController implements Initializable {
     public void onRecordSelection(MouseEvent mouseEvent) {
         Customers selectedCustomer  = editCustomerTableView.getSelectionModel().getSelectedItem();
 
+        // set the countriesComboBox
+        int countryToChoose = DBDivision.getCountryID(selectedCustomer.getDivisionId());
+        for(Countries c : countriesComboBox.getItems()){
+            if (countryToChoose == c.getId()){
+                countriesComboBox.setValue(c);
+                break;
+            }
+        }
+
+        // set the divisionsComboBox
+        int divisionToChoose = selectedCustomer.getDivisionId();
+        for(Division d : divisionsComboBox.getItems()){
+            if (divisionToChoose == d.getDivisionId()){
+                divisionsComboBox.setValue(d);
+                break;
+            }
+        }
+
+        // populate the TextFields
         customerIdTxt.setText(String.valueOf(selectedCustomer.getCustomerId()));
         customerNameTxt.setText(String.valueOf(selectedCustomer.getCustomerName()));
         addressTxt.setText(String.valueOf(selectedCustomer.getAddress()));
-        divisionsComboBox.getSelectionModel().select(selectedCustomer.getDivisionId() -1);
         postalCodeTxt.setText(String.valueOf(selectedCustomer.getPostalCode()));
         phoneTxt.setText(String.valueOf((selectedCustomer.getPhone())));
 
