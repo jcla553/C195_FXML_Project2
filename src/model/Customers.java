@@ -50,7 +50,7 @@ public class Customers {
     }
 
     /**
-     * Get the CustomerId
+     * Get the CustomerId.
      * @return the int value
      */
     public int getCustomerId() {

@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
  *
  */
 public class Main extends Application {
-    public static int customerSequence;
-    public static int appointmentSequence;
+//    public static int customerSequence;
+//    public static int appointmentSequence;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -46,8 +46,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         // set sequences
-        customerSequence = 10;
-        appointmentSequence = 10;
+//        customerSequence = 10;
+//        appointmentSequence = 10;
 
         DBConnection.makeConnection();
         launch(args);

@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static main.Main.customerSequence;
+//import static main.Main.customerSequence;
 
 public class AddCustomerController implements Initializable {
 
@@ -75,12 +75,8 @@ public class AddCustomerController implements Initializable {
             String phoneNumber = phoneTxt.getText();
             int country = countriesComboBox.getValue().getId();
 
-            boolean successfulInsert = DBCustomers.addCustomer(customerName, address, postalCode,
-                                                    divisionCode, phoneNumber, country);
-//            System.out.println(customerName + " " + address + " " + postalCode + " " +
-//                    "1" + " " +  phoneNumber + " " + country);
-            // todo fix this insert to use the combo box values
-
+            DBCustomers.addCustomer(customerName, address, postalCode,
+                                    divisionCode, phoneNumber, country);
 
         } catch(NumberFormatException e) {
             popupError("Please enter valid value for each field.");
