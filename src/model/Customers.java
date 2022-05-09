@@ -33,6 +33,7 @@ public class Customers {
      * @param lastUpdate The most recent time of edit.
      * @param lastUpdatedBy The most recent user to edit.
      * @param divisionId The state or province location info.
+     * @param division The text description of the division.
      */
     public Customers(int customerId, String customerName, String address, String postalCode, String phone,
                  String createdDate, String createdBy, String lastUpdate, String lastUpdatedBy, int divisionId, String division) {

@@ -1,30 +1,24 @@
 package controller;
 
-import database.DBContacts;
-import database.DBCountries;
-import database.DBCustomers;
-import database.DBDivision;
+import database.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Contacts;
-import model.Countries;
-import model.Customers;
-import model.Division;
+import model.*;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.*;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
@@ -54,7 +48,13 @@ public class AddAppointmentController implements Initializable {
     private TextField typeTxt;
 
     @FXML
-    private TextField endTxt;
+    private DatePicker startDatePicker;
+
+    @FXML
+    private Spinner startTimeSpinner;
+
+    @FXML
+    private Spinner endTimeSpinner;
 
     @FXML
     private TextField customerIDTxt;
@@ -83,11 +83,66 @@ public class AddAppointmentController implements Initializable {
     }
 
     public void onSaveButtonAction(ActionEvent event) {
+//        String appointmentId = appointmentIdTxt.getText();
+        String title = titleTxt.getText();;
+        String description = descriptionTxt.getText();
+        String location = locationTxt.getText();
+        int contactId = contactComboBox.getValue().getContactId();
+        String type = typeTxt.getText();
+        String customerId = customerIDTxt.getText();
+        String userId = userName;
+
+        // date stuff
+        LocalDate startDate = startDatePicker.getValue();
+        System.out.println("startDate: " + startDate);
+
+        // Make the spinner values actual time.
+        LocalTime startTimeSpinnerValue = LocalTime.of((Integer) startTimeSpinner.getValue(), 0, 0);
+        LocalTime endTimeSpinnerValue = LocalTime.of((Integer) endTimeSpinner.getValue(), 0, 0);
+
+//        LocalDateTime nowDateTime = LocalDateTime.now();
+//        System.out.println("nowDateTime: " + nowDateTime);
+
+        // Make a ZonedDateTime object
+        ZonedDateTime startTime = ZonedDateTime.of(startDate, startTimeSpinnerValue, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
+        System.out.println("startTime: " + startTime);
+
+        ZonedDateTime endTime = ZonedDateTime.of(startDate, endTimeSpinnerValue, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
+        System.out.println("  endTime: " + endTime);
+
+        // create new appointment using model method
+        DBAppointments.addAppointment(title, description, location, type, startTime, endTime, customerIDTxt);
+
+        // Store the UTC time in the database
+
+        // later when showing the time, convert the UTC to local time zone
+//        LocalTime
+        // todo define this
+    }
+
+    public static Date dateFromUTC(Date date){
+        return new Date(date.getTime() + Calendar.getInstance().getTimeZone().getOffset(new Date().getTime()));
+    }
+
+    public static Date dateToUTC(Date date){
+        return new Date(date.getTime() - Calendar.getInstance().getTimeZone().getOffset(date.getTime()));
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         contactComboBox.setItems(DBContacts.getAllContacts());
+
+        // set default contact and date
+        contactComboBox.getSelectionModel().selectFirst();
+        startDatePicker.setValue(LocalDate.now());
+
+
+        // populate the spinner
+        SpinnerValueFactory<Integer> startTimeValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,24, 8);
+        this.startTimeSpinner.setValueFactory(startTimeValueFactory);
+
+        SpinnerValueFactory<Integer> endTimeValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,24, 8);
+        this.endTimeSpinner.setValueFactory(endTimeValueFactory);
     }
 }

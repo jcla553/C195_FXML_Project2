@@ -18,11 +18,13 @@ import model.Countries;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
     public Label TheLabel;
+    public String userName;
 
     Stage stage;
     Parent scene;
@@ -46,6 +48,9 @@ public class LoginScreenController implements Initializable {
     private Label LocationLbl;
 
     @FXML
+    private Label zoneIdLbl;
+
+    @FXML
     private Button SubmitBtn;
 
     @FXML
@@ -56,6 +61,26 @@ public class LoginScreenController implements Initializable {
         System.out.println("LoginScreen initialized!");
         TheLabel.setText("Initialized!");
         TheLabel.setText(String.valueOf(Locale.getDefault()));
+
+        ZoneId zone = ZoneId.systemDefault();
+        System.out.println("Output of systemDefault()-" +zone);
+
+        System.out.println("Output of zoneid obtained using of function: "+ zone.normalized());
+
+        ZoneId zoneOf = ZoneId.of(String.valueOf(zone));
+        System.out.println("of on ZoneId: " + zoneOf);
+
+        ZoneId zoneId = ZoneId.ofOffset("GMT", ZoneOffset.MAX);
+        System.out.println("OfOffset on ZoneId: " + zoneId);
+
+        LocalDate nowDate = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
+        LocalDateTime nowDateTime = LocalDateTime.of(nowDate, nowTime);
+        System.out.println("It's currently " + nowDateTime + " where I am");
+
+
+        //display label on form
+        zoneIdLbl.setText(String.valueOf(zone));
 
         ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
 
@@ -95,11 +120,12 @@ public class LoginScreenController implements Initializable {
         isLoginFieldEmpty("UserName", UserNameTxt.getText());
         isLoginFieldEmpty("Password", PasswordTxt.getText());
 
-            System.out.println("UserName: " + UserNameTxt.getText());
+            String userName = UserNameTxt.getText();
+            System.out.println("UserName: " + userName);
             System.out.println("Password: " + PasswordTxt.getText());
 
         // positive number for return of isValid = the UserID
-        int isValid = DBUsers.validateLogin(UserNameTxt.getText(), PasswordTxt.getText());
+        int isValid = DBUsers.validateLogin(userName, PasswordTxt.getText());
             System.out.println("isValid = " + isValid);
 
         if (isValid == 1) {

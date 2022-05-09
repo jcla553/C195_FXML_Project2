@@ -4,6 +4,11 @@ public class Countries {
     private int id;
     private String name;
 
+    /**
+     * Constructor for the Countries model
+     * @param id The primary key
+     * @param name Name of the country
+     */
     public Countries(int id, String name) {
         this.id = id;
         this.name = name;

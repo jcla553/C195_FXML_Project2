@@ -15,11 +15,7 @@ public class DBCustomers {
         ObservableList<Customers> customerList = FXCollections.observableArrayList();
 
         try {
-            // This query is not super efficient doing a lookup for each record,
-            // but given the scale of this application this is not a big concern.
-            String sql = "SELECT * , (SELECT division FROM first_level_divisions d WHERE c.Division_ID = d.Division_ID) as Division FROM customers c";
-
-//            String sql = "SELECT *, (SELECT division FROM first_level_divisions d WHERE c.Division_ID = d.Division_ID) as Division FROM customers c";
+            String sql = "SELECT c.*, d.division FROM customers c JOIN first_level_divisions d on c.Division_id = d.Division_ID";
 
             //connects to the database
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -136,6 +132,7 @@ public class DBCustomers {
 
         //create the query
         String sql = "DELETE FROM customers WHERE Customer_ID = " + customerID;
+        System.out.println("deleteCustomer sql: " + sql);
 
         // Use query
         try {
