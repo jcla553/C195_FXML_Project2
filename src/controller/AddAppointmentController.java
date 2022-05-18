@@ -84,13 +84,13 @@ public class AddAppointmentController implements Initializable {
 
     public void onSaveButtonAction(ActionEvent event) {
 //        String appointmentId = appointmentIdTxt.getText();
-        String title = titleTxt.getText();;
+        String title = titleTxt.getText();
         String description = descriptionTxt.getText();
         String location = locationTxt.getText();
         int contactId = contactComboBox.getValue().getContactId();
         String type = typeTxt.getText();
         String customerId = customerIDTxt.getText();
-        String userId = userName;
+        String userId = DBUsers.getCurrentUser();
 
         // date stuff
         LocalDate startDate = startDatePicker.getValue();
@@ -111,7 +111,7 @@ public class AddAppointmentController implements Initializable {
         System.out.println("  endTime: " + endTime);
 
         // create new appointment using model method
-        DBAppointments.addAppointment(title, description, location, type, startTime, endTime, customerIDTxt);
+        DBAppointments.addAppointment(title, description, location, type, startTime, endTime, customerId, userId, contactId);
 
         // Store the UTC time in the database
 

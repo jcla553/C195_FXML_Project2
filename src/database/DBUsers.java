@@ -10,6 +10,9 @@ import java.sql.SQLException;
 
 public class DBUsers {
 
+    private static String currentUser;
+    private static int currentUserId;
+
     /**
      * Obtain list of all records from users table.
      * @return userList The list of all users. This is here for completeness, but a bad idea security wise real world.
@@ -71,7 +74,10 @@ public class DBUsers {
                 if (rs.getString("User_Name").equals(userName) &&
                             rs.getString("Password").equalsIgnoreCase(password)) {
                     // login match
-                    return rs.getInt("User_ID");
+                    setCurrentUser(rs.getString("User_Name"));
+                    setCurrentUserId(rs.getInt("User_ID"));
+
+                    return currentUserId;
                     }
                 }
             return -1; // not found
@@ -84,4 +90,19 @@ public class DBUsers {
         return -1; // if we got here, no match
     }
 
+    public static void setCurrentUser(String currentUser) {
+        DBUsers.currentUser = currentUser;
+    }
+
+    public static String getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUserId(int userId) {
+        DBUsers.currentUserId = userId;
+    }
+
+    public static int getCurrentUserId() {
+        return currentUserId;
+    }
 }

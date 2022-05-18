@@ -8,6 +8,8 @@ import model.Appointments;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 
 public class DBAppointments {
 
@@ -58,16 +60,18 @@ public class DBAppointments {
         return appointmentList;
     }
 
-    public static boolean addAppointment(String title, String description, String location, String type, String start, String end,
-                                         int customerId, int userId, int contactId) {
+    public static boolean addAppointment(String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end,
+                                         String customerId, String userId, int contactId) {
 
         //create the query
-        String sql = "Insert into appointments (Title, Description, Location, Type, Start, End, "
+        String sql = "Insert into appointments (Title, Description, Location, Type, "
+                + "Start, End, "
                 + "Create_Date, Created_By, Last_Update, Last_Updated_By, "
                 + "Customer_ID, User_ID, Contact_ID) values ('"
-                + title + "', '" + description + "', '" + location + "', '" + type + "', '" + start + "', '" + end + "', '"
-                + "now(), 'me', now(), 'me', "
-                + customerId + "', '" + userId + "', '" + contactId + ")";
+                + title + "', '" + description + "', '" + location + "', '" + type + "', '"
+                + Timestamp.valueOf(start.toLocalDateTime()) + "', '" + Timestamp.valueOf(end.toLocalDateTime()) + "', "
+                + "now(), 'me', now(), 'me', '"
+                + customerId + "', '" + DBUsers.getCurrentUserId() + "', '" + contactId + "')";
         System.out.println(sql);
 
         // Use query
