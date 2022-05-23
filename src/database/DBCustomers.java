@@ -130,9 +130,10 @@ public class DBCustomers {
      */
     public static void deleteCustomer(int customerID){
 
+        //delete child query records
         //create the query
-        String sql = "DELETE FROM customers WHERE Customer_ID = " + customerID;
-        System.out.println("deleteCustomer sql: " + sql);
+        String sql = "DELETE FROM appointments WHERE Customer_ID = " + customerID;
+        System.out.println("deleteAppointment sql: " + sql);
 
         // Use query
         try {
@@ -142,7 +143,23 @@ public class DBCustomers {
             // gets the results set
             ps.execute();
         } catch (SQLException throwables) {
-            System.out.println("Deletion Failed");
+            System.out.println("Appointment Deletion Failed");
+            throwables.printStackTrace();
+        }
+
+        //create the query
+        String sql2 = "DELETE FROM customers WHERE Customer_ID = " + customerID;
+        System.out.println("deleteCustomer sql: " + sql2);
+
+        // Use query
+        try {
+            // connects to the database
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql2);
+
+            // gets the results set
+            ps.execute();
+        } catch (SQLException throwables) {
+            System.out.println("Customer Deletion Failed");
             throwables.printStackTrace();
         }
 

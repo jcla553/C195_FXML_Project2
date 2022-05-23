@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="addCustomerAnchorPane" prefHeight="384.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditCustomerController">
+<AnchorPane fx:id="addCustomerAnchorPane" prefHeight="678.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditCustomerController">
     <GridPane layoutX="14.0" layoutY="57.0" prefHeight="212.0" prefWidth="331.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,12 +36,12 @@
     </GridPane>
    <Button fx:id="DeleteBtn" layoutX="230.0" layoutY="310.0" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Delete" />
    <Button fx:id="CancelBtn" layoutX="293.0" layoutY="310.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
-   <Label layoutX="26.0" layoutY="14.0" text="Modify Customer">
+   <Label layoutX="26.0" layoutY="14.0" text="Edit Customer">
       <font>
          <Font name="System Bold" size="18.0" />
       </font>
    </Label>
-   <TableView fx:id="editCustomerTableView" layoutX="365.0" layoutY="57.0" onMouseClicked="#onRecordSelection" prefHeight="290.0">
+   <TableView fx:id="editCustomerTableView" layoutX="14.0" layoutY="358.0" onMouseClicked="#onRecordSelection" prefHeight="290.0">
        <columns>
            <TableColumn fx:id="customerNameCol" prefWidth="155.0" text="Name" />
            <TableColumn fx:id="addressCol" prefWidth="150.0" text="Address" />
