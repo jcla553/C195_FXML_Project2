@@ -1,16 +1,18 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class Appointments {
-    private  int Appointment_ID;
+    private int Appointment_ID;
     private String Title;
     private String Description;
     private String Location;
     private String Type;
-    private String Start;       // datetime
-    private String End;         // datetime
-    private String Create_Date; // datetime
+    private Timestamp Start;       // datetime
+    private Timestamp End;         // datetime
+    private Timestamp Create_Date; // datetime
     private String Created_By;
-    private String Last_Update; // timestamp
+    private Timestamp Last_Update; // timestamp
     private String Last_Updated_By;
     private int Customer_ID;
     private int User_ID;
@@ -33,7 +35,8 @@ public class Appointments {
      * @param user_ID
      * @param contact_ID
      */
-    public Appointments(int appointment_ID, String title, String description, String location, String type, String start, String end, String create_Date, String created_By, String last_Update, String last_Updated_By, int customer_ID, int user_ID, int contact_ID) {
+    public Appointments(int appointment_ID, String title, String description, String location, String type, Timestamp start, Timestamp end,
+                        Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By, int customer_ID, int user_ID, int contact_ID) {
         Appointment_ID = appointment_ID;
         Title = title;
         Description = description;
@@ -134,7 +137,7 @@ public class Appointments {
      * Get the Start Date and Time of the appointment.
      * @return the time specified.
      */
-    public String getStart() {
+    public Timestamp getStart() {
         return Start;
     }
 
@@ -142,7 +145,7 @@ public class Appointments {
      * Set the Start Date and Time of the appointment.
      * @param start - the UTC time of the appointment.
      */
-    public void setStart(String start) {
+    public void setStart(Timestamp start) {
         Start = start;
     }
 
@@ -150,7 +153,7 @@ public class Appointments {
      * Get the End Date and Time of the appointment.
      * @return the time specified.
      */
-    public String getEnd() {
+    public Timestamp getEnd() {
         return End;
     }
 
@@ -158,7 +161,7 @@ public class Appointments {
      * Set the End Date and Time of the appointment.
      * @param end the UTC time of the appointment.
      */
-    public void setEnd(String end) {
+    public void setEnd(Timestamp end) {
         End = end;
     }
 
@@ -166,7 +169,7 @@ public class Appointments {
      * Get the audit column, record create date.
      * @return the date.
      */
-    public String getCreate_Date() {
+    public Timestamp getCreate_Date() {
         return Create_Date;
     }
 
@@ -174,7 +177,7 @@ public class Appointments {
      * Set the audit column, record create date.
      * @param create_Date the date.
      */
-    public void setCreate_Date(String create_Date) {
+    public void setCreate_Date(Timestamp create_Date) {
         Create_Date = create_Date;
     }
 
@@ -198,7 +201,7 @@ public class Appointments {
      * Get the audit column, last update date.
      * @return the date.
      */
-    public String getLast_Update() {
+    public Timestamp getLast_Update() {
         return Last_Update;
     }
 
@@ -206,7 +209,7 @@ public class Appointments {
      * Set the audit column, last update date.
      * @param last_Update The date.
      */
-    public void setLast_Update(String last_Update) {
+    public void setLast_Update(Timestamp last_Update) {
         Last_Update = last_Update;
     }
 

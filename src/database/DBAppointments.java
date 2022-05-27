@@ -2,7 +2,6 @@ package database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import jdk.jfr.Description;
 import model.Appointments;
 
 import java.sql.PreparedStatement;
@@ -37,11 +36,11 @@ public class DBAppointments {
                 String description = rs.getString("Description");
                 String location = rs.getString("Location");
                 String type = rs.getString("Type");
-                String start = rs.getString("Start");
-                String end = rs.getString("End");
-                String createDate = rs.getString("Create_Date");
+                Timestamp start = rs.getTimestamp("Start");
+                Timestamp end = rs.getTimestamp("End");
+                Timestamp createDate = rs.getTimestamp("Create_Date");
                 String createdBy = rs.getString("Created_By");
-                String lastUpdate = rs.getString("Last_Update");
+                Timestamp lastUpdate = rs.getTimestamp("Last_Update");
                 String lastUpdatedBy = rs.getString("Last_Updated_By");
                 int customerId = rs.getInt("Customer_ID");
                 int userId = rs.getInt("User_ID");
@@ -60,7 +59,7 @@ public class DBAppointments {
         return appointmentList;
     }
 
-    public static boolean addAppointment(String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end,
+    public static boolean addAppointment(int appointmentId, String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end,
                                          String customerId, String userId, int contactId) {
 
         //create the query
@@ -70,7 +69,7 @@ public class DBAppointments {
                 + "Customer_ID, User_ID, Contact_ID) values ('"
                 + title + "', '" + description + "', '" + location + "', '" + type + "', '"
                 + Timestamp.valueOf(start.toLocalDateTime()) + "', '" + Timestamp.valueOf(end.toLocalDateTime()) + "', "
-                + "now(), 'me', now(), 'me', '"
+                + "now(), '" +  userId + "', " + " now(), '" + userId + "', '"
                 + customerId + "', '" + DBUsers.getCurrentUserId() + "', '" + contactId + "')";
         System.out.println(sql);
 

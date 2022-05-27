@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -99,7 +100,9 @@ public class EditAppointmentController implements Initializable {
         System.out.println("1");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.println("2");
-        LocalDate localDate = LocalDate.parse(selectedAppointment.getStart(), formatter);
+        Timestamp startTime = selectedAppointment.getStart();
+//        startDatePicker.setValue(startTime);  // TODO this is broken yo!!!!
+//        LocalDate localDate = LocalDate.parse(selectedAppointment.getStart(), formatter);
         System.out.println("3");
 //        System.out.println(selectedAppointment.getStart());
 //        startDatePicker.setValue(localDate);

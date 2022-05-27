@@ -111,7 +111,7 @@ public class AddAppointmentController implements Initializable {
         System.out.println("  endTime: " + endTime);
 
         // create new appointment using model method
-        DBAppointments.addAppointment(title, description, location, type, startTime, endTime, customerId, userId, contactId);
+        DBAppointments.addAppointment(0, title, description, location, type, startTime, endTime, customerId, userId, contactId);
 
         // Store the UTC time in the database
 
