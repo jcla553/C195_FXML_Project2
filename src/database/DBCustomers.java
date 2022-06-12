@@ -124,7 +124,7 @@ public class DBCustomers {
     }
 
     /**
-     * Remove a customer record //todo this will need to cascade delete, or remove appointment records before the customer delete.
+     * Remove a customer record
      * @param customerID The primary key value to ensure single record deletion.
      * @return success value.
      */

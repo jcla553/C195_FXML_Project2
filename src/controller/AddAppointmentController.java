@@ -113,11 +113,6 @@ public class AddAppointmentController implements Initializable {
         // create new appointment using model method
         DBAppointments.addAppointment(0, title, description, location, type, startTime, endTime, customerId, userId, contactId);
 
-        // Store the UTC time in the database
-
-        // later when showing the time, convert the UTC to local time zone
-//        LocalTime
-        // todo define this
     }
 
     public static Date dateFromUTC(Date date){

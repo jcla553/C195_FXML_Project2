@@ -90,5 +90,60 @@ public class DBAppointments {
     }
 
 
+    public static void updateAppointment(String appointmentId, String title, String description, String location, String type,
+                                         ZonedDateTime startTime, ZonedDateTime endTime, String customerId, String userId, int contactId) {
+
+        //create the query
+
+        String sql = "Update appointments SET " +
+        " Title = '" +  title + "', " +
+        " Description = '" +  description + "', " +
+        " Location = '" +  location + "', " +
+        " Type = '" +  type + "', " +
+        " Start = '" +  Timestamp.valueOf(startTime.toLocalDateTime()) + "', " +
+        " End = '" +  Timestamp.valueOf(endTime.toLocalDateTime()) + "', " +
+        " Last_Update = now(), " +
+        " Last_Updated_By = '" +  userId + "', " +
+        " Customer_ID = '" +  customerId + "', " +
+        " User_ID = '" +  DBUsers.getCurrentUserId() + "', " +
+        " Contact_ID = '" +  contactId + "'" +
+        " WHERE Appointment_ID = " + appointmentId;
+
+        System.out.println(sql);
+
+        // Use query
+        try {
+            // connects to the database
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            // gets the results set
+            ps.execute();
+        } catch (SQLException throwables) {
+            System.out.println("Insert Failed");
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public static void deleteAppointment(int appointmentID){
+
+        //create the query
+        String sql = "DELETE FROM appointments WHERE Appointment_ID = " + appointmentID;
+        System.out.println("deleteAppointment sql: " + sql);
+
+        // Use query
+        try {
+            // connects to the database
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            // gets the results set
+            ps.execute();
+        } catch (SQLException throwables) {
+            System.out.println("Appointment Deletion Failed");
+            throwables.printStackTrace();
+        }
+
+    }
+
 
 }

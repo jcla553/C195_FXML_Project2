@@ -41,8 +41,8 @@
         <TextField fx:id="customerIDTxt" GridPane.columnIndex="1" GridPane.rowIndex="9" />
       <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <Label text="Start Time (Hour of day)" GridPane.rowIndex="7" />
-      <Spinner fx:id="startTimeSpinner" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <Spinner fx:id="endTimeSpinner" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <TextField fx:id="startTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="endTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 <!--        <ComboBox fx:id="divisionsComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />-->
     </GridPane>
    <Button fx:id="SaveBtn" layoutX="180.0" layoutY="382.0" mnemonicParsing="false" onAction="#onSaveButtonAction" text="Save" />
