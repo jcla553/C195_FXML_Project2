@@ -146,4 +146,87 @@ public class DBAppointments {
     }
 
 
+    public static ObservableList<Appointments> getMonthAppointments() {
+        ObservableList<Appointments> appointmentList = FXCollections.observableArrayList();
+
+        try {
+            String sql = "SELECT * FROM client_schedule.appointments WHERE MONTH(start) = MONTH(now())";
+
+            //connects to the database
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            // gets the results set
+            ResultSet rs = ps.executeQuery();
+
+            // walk through results set
+            while (rs.next()){
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                Timestamp end = rs.getTimestamp("End");
+                Timestamp createDate = rs.getTimestamp("Create_Date");
+                String createdBy = rs.getString("Created_By");
+                Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+                String lastUpdatedBy = rs.getString("Last_Updated_By");
+                int customerId = rs.getInt("Customer_ID");
+                int userId = rs.getInt("User_ID");
+                int contactId = rs.getInt("Contact_ID");
+
+                Appointments A = new Appointments(appointmentId, title, description, location, type, start, end,
+                        createDate, createdBy, lastUpdate, lastUpdatedBy, customerId, userId, contactId);
+
+                // add the results to the list
+                appointmentList.add(A);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return appointmentList;
+    }
+
+    public static ObservableList<Appointments> getWeekAppointments() {
+        ObservableList<Appointments> appointmentList = FXCollections.observableArrayList();
+
+        try {
+            String sql = "SELECT * FROM client_schedule.appointments WHERE YEARWEEK (start) = YEARWEEK (NOW());";
+
+            //connects to the database
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            // gets the results set
+            ResultSet rs = ps.executeQuery();
+
+            // walk through results set
+            while (rs.next()){
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                Timestamp end = rs.getTimestamp("End");
+                Timestamp createDate = rs.getTimestamp("Create_Date");
+                String createdBy = rs.getString("Created_By");
+                Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+                String lastUpdatedBy = rs.getString("Last_Updated_By");
+                int customerId = rs.getInt("Customer_ID");
+                int userId = rs.getInt("User_ID");
+                int contactId = rs.getInt("Contact_ID");
+
+                Appointments A = new Appointments(appointmentId, title, description, location, type, start, end,
+                        createDate, createdBy, lastUpdate, lastUpdatedBy, customerId, userId, contactId);
+
+                // add the results to the list
+                appointmentList.add(A);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return appointmentList;
+    }
 }

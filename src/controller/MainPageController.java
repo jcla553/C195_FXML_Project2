@@ -12,6 +12,13 @@ import java.io.IOException;
 
 public class MainPageController {
 
+    public Button addCustomerBtn;
+    public Button mainPageBtn;
+    public Button editCustomerBtn;
+    public Button addAppointmentBtn;
+    public Button exitBtn;
+    public Button editAppointmentBtn;
+    public Button reportsBtn;
     Stage stage;
     Parent scene;
 
@@ -67,6 +74,10 @@ public class MainPageController {
         gotoPage(event, "/view/EditAppointment.fxml");
     }
 
+    public void onReports(ActionEvent event) throws IOException {
+        gotoPage(event, "/view/Reports.fxml");
+    }
+
     /**
      * Exit the application.
      * @param event The Exit button press event.
@@ -75,5 +86,4 @@ public class MainPageController {
     void onActionExit(ActionEvent event) {
         System.exit(0);
     }
-
 }
