@@ -1,5 +1,6 @@
 package controller;
 
+import database.DBAppointments;
 import database.DBUsers;
 import database.DBCountries;
 import javafx.collections.ObservableList;
@@ -129,6 +130,14 @@ public class LoginScreenController implements Initializable {
             System.out.println("isValid = " + isValid);
 
         if (isValid == 1) {
+            // check upcoming appointments
+            String ifConflict = DBAppointments.isNextAppointmentIn15Minutes(userName);
+//            if (DBAppointments.isNextAppointmentIn15Minutes(userName)) {
+                popupInfo(ifConflict);
+//            } else {
+//                popupInfo("No appointments starting within the next 15 minutes.");
+//            }
+
             // go to the Main Page
             gotoPage(event, "/view/MainPage.fxml");
         } else if (isValid <= 0) {
@@ -172,4 +181,20 @@ public class LoginScreenController implements Initializable {
         alert.setContentText(contentText);
         alert.showAndWait();
     }
+
+    /**
+     * Moved the Alert creation into a method to allow a single line call.
+     * @param contentText The context appropriate message for the user.
+     */
+    @FXML
+    public void popupInfo(String contentText) {
+        ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(rb.getString("InfoDialog"));
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
+
+
 }

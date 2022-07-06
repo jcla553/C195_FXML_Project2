@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 public class DBAppointments {
 
@@ -129,6 +129,7 @@ public class DBAppointments {
 
         //create the query
         String sql = "DELETE FROM appointments WHERE Appointment_ID = " + appointmentID;
+        String commit = "Commit";
         System.out.println("deleteAppointment sql: " + sql);
 
         // Use query
@@ -138,13 +139,13 @@ public class DBAppointments {
 
             // gets the results set
             ps.execute();
+
         } catch (SQLException throwables) {
             System.out.println("Appointment Deletion Failed");
             throwables.printStackTrace();
         }
 
     }
-
 
     public static ObservableList<Appointments> getMonthAppointments() {
         ObservableList<Appointments> appointmentList = FXCollections.observableArrayList();
@@ -228,5 +229,123 @@ public class DBAppointments {
         }
 
         return appointmentList;
+    }
+
+    public static Boolean isOverlapAppointment (int appointmentId, LocalDateTime start, LocalDateTime end, String customerId) {
+
+        // if new or edit, appointment id will be different than what is sent to be conflict.
+        String sql = "SELECT * FROM appointments WHERE Appointment_ID != " + appointmentId +
+                " AND Customer_ID = " + customerId +
+        " AND (( '" + start + "' BETWEEN Start AND End) OR ( '" + end + "' BETWEEN Start AND End ) /* Start or End lands during existing appointment */ " +
+        "   OR ( '" + start + "' < Start AND '" + end + "' > End ) /* Start AND End encapsulate existing appointment */ " +
+        "   OR ( '" + start + "' = Start ) /* START matches Start */ " +
+        "   OR ( '" +  end  + "' = End ))  /* End matches End */ ";
+
+//        " (( '" + start + "' <= Start AND '" + end + "' > End) OR " + "  ( '" + start + "' >= Start AND '" + end + "' < End))";
+//        AND (( '2022-07-02T12:00' BETWEEN Start AND End) OR ( '2022-07-02T16:00' BETWEEN Start AND End ) -- Start or End lands during existing appointment
+//        OR ( '2022-07-02T12:00' < Start AND '2022-07-02T16:00' > End ) -- Start AND End encapsulate existing appointment
+//        OR ( '2022-07-02T12:00' = Start ) -- START matches Start
+//        OR ( '2022-07-02T16:00' = End ) -- End matches End
+
+        System.out.println(sql);
+
+        /*  list of test criteria from the instruction video
+          10:00am - 11:30am
+          10:30am - 11:30am
+          10:00am - 11:00am
+          10:30am - 11:00am
+           9:30am - 11:00am
+           9:30am - 10:30am
+           9:30am - 11:30am
+         */
+
+        try {
+            // connects to the database
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            // gets the results set
+
+            ResultSet rs = ps.executeQuery();
+
+            // if a result is returned, conflict found
+            while ( rs.next() ) {
+                return true;
+            }
+
+        } catch (SQLException throwables) {
+            System.out.println("Bad SQL for isOverlapAppointment");
+            throwables.printStackTrace();
+        }
+
+        // no result found, no conflict
+        return false;
+    }
+
+    public static boolean isDuringBusinessHours(LocalDate startDate, LocalTime startTime, LocalTime endTime) {
+        System.out.println("entered isDuringBusinessHours");
+        // EST zone id
+//        ZoneId z = ZoneId.of( "America/New_York" );
+
+//        Parse as a LocalDateTime as your input lacks an indicator of offset-from-UTC or time zone.
+        LocalDateTime ldtStart = LocalDateTime.of(startDate, startTime) ;
+        LocalDateTime ldtEnd   = LocalDateTime.of(startDate, endTime) ;
+
+//        Apply a time zone if you are certain it was intended for this input.
+        ZoneId z = ZoneId.of( "America/New_York" ) ;
+        ZonedDateTime zdtStart = ZonedDateTime.of(ldtStart, ZoneId.of("America/New_York"));
+        ZonedDateTime zdtEnd   = ZonedDateTime.of(ldtEnd,   ZoneId.of("America/New_York"));
+
+        LocalTime OPEN = LocalTime.of(8, 0);
+        LocalTime CLOSE = LocalTime.of(18, 0);
+
+        LocalTime localTimeStart = zdtStart.toLocalTime ();
+        LocalTime localTimeEnd   = zdtEnd.toLocalTime ();
+        if (
+                ( !localTimeStart.isBefore( OPEN ) )  // STARTS AFTER STORE OPEN
+                && (localTimeEnd.isAfter( OPEN ) ) // ENDS AFTER STORE OPEN
+                && (localTimeStart.isBefore( CLOSE ) )  // STARTS BEFORE STORE CLOSE
+                && (!localTimeEnd.isAfter( CLOSE ) )  // ENDS BEFORE STORE CLOSE
+            )  {
+            System.out.println("evaluates to true");
+            return true;
+        }
+        System.out.println("evaluates to false");
+        return false;
+    }
+
+    public static String isNextAppointmentIn15Minutes(String userName) {
+
+        try {
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+
+            // create query to find appointments
+            String sql = "SELECT * FROM client_schedule.appointments WHERE User_ID = (  SELECT user_id FROM client_schedule.users WHERE user_name = '" + userName + "')";
+
+            System.out.println(sql);
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            // gets the results set
+
+            ResultSet rs = ps.executeQuery();
+
+
+            // if a result is returned, loop through and compare appointment times to current time. Adjusted for timezones.
+            while (rs.next()) {
+
+                int appointmentId = rs.getInt("Appointment_ID");
+                Timestamp start = rs.getTimestamp("Start");
+
+                if (start.toLocalDateTime().isAfter(currentDateTime)
+                        && start.toLocalDateTime().isBefore(currentDateTime.plusMinutes(15))) {
+                    return "Appointment: " + appointmentId + " starts soon (" + start + "), please consult your schedule." ;
+                }
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return "No appointments starting within the next 15 minutes."; // no appointment found in next 15 minutes
     }
 }

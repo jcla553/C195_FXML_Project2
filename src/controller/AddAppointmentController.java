@@ -110,9 +110,14 @@ public class AddAppointmentController implements Initializable {
         ZonedDateTime endTime = ZonedDateTime.of(startDate, endTimeSpinnerValue, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
         System.out.println("  endTime: " + endTime);
 
-        // create new appointment using model method
-        DBAppointments.addAppointment(0, title, description, location, type, startTime, endTime, customerId, userId, contactId);
-
+        if (DBAppointments.isOverlapAppointment(0, startTime.toLocalDateTime(), endTime.toLocalDateTime(), customerId)) {
+            popupError("This appointment time has a conflict.");
+        } else if (!DBAppointments.isDuringBusinessHours(startDate, startTimeSpinnerValue, endTimeSpinnerValue)) {
+                popupError("Appointment must be between 8:00 a.m and 10:00 p.m. EST, including weekends.");
+        } else {
+            // create new appointment using model method
+            DBAppointments.addAppointment(0, title, description, location, type, startTime, endTime, customerId, userId, contactId);
+        }
     }
 
     public static Date dateFromUTC(Date date){

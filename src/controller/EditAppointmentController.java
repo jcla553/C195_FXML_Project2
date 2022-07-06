@@ -218,16 +218,21 @@ public class EditAppointmentController implements Initializable {
         ZonedDateTime endTime = ZonedDateTime.of(startDate, endTimeField, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
         System.out.println("  endTime: " + endTime);
 
-        // create new appointment using model method
-        DBAppointments.updateAppointment(appointmentId, title, description, location, type, startTime, endTime, customerId, userId, contactId);
+        if (DBAppointments.isOverlapAppointment(0, startTime.toLocalDateTime(), endTime.toLocalDateTime(), customerId)) {
+            popupError("This appointment time has a conflict.");
+        } else if (!DBAppointments.isDuringBusinessHours(startDate, startTimeField, endTimeField)) {
+            popupError("Appointment must be between 8:00 a.m and 10:00 p.m. EST, including weekends.");
+        } else {
+            // create new appointment using model method
+            DBAppointments.updateAppointment(appointmentId, title, description, location, type, startTime, endTime, customerId, userId, contactId);
+            gotoPage(event, "/view/EditAppointment.fxml");
+        }
 
-//        gotoPage(event, "/view/MainPage.fxml");
-        gotoPage(event, "/view/EditAppointment.fxml");
 
 
     }
 
-    public void onDeleteButtonAction(ActionEvent event) {
+    public void onDeleteButtonAction(ActionEvent event) throws IOException {
         Appointments isItSelected = editAppointmentTableView.getSelectionModel().getSelectedItem();
         if (isItSelected == null){
             popupError("Please select a record.");
@@ -251,6 +256,7 @@ public class EditAppointmentController implements Initializable {
             //Delete the record
             System.out.println("delete button");
             DBAppointments.deleteAppointment(editAppointmentTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
+            gotoPage(event, "/view/EditAppointment.fxml");
         } else if (result.get() == ButtonType.CANCEL) {
             System.out.println("CANCEL BUTTON PRESSED");
         }
