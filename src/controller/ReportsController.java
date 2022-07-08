@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -30,6 +32,8 @@ public class ReportsController implements Initializable {
     public RadioButton monthRadioBtn;
     public RadioButton weekRadioBtn;
     public Button CancelBtn;
+    public RadioButton totalCustomerAppointmentsRadioBtn;
+    public RadioButton scheduleByContactRadioBtn;
     Stage stage;
     Parent scene;
 
@@ -60,6 +64,17 @@ public class ReportsController implements Initializable {
     @FXML
     private TableColumn<Appointments, Integer> contactIDCol;
 
+    // additional table
+    @FXML
+    private TableView<String> totalCustomerAppointmentsTableView;
+    @FXML
+    private TableColumn<List, String> countCol;
+    @FXML
+    private TableColumn<List, String> typesCol;
+    @FXML
+    private TableColumn<List, String> monthCol;
+
+
     /**
      * Moved the Alert creation into a method to allow a single line call.
      * @param contentText The context appropriate message for the user.
@@ -88,6 +103,11 @@ public class ReportsController implements Initializable {
         userIDCol.setCellValueFactory(new PropertyValueFactory<>("User_ID"));
         contactIDCol.setCellValueFactory(new PropertyValueFactory<>("Contact_ID"));
 
+        //populate the Appointment Count table
+        totalCustomerAppointmentsTableView.setItems(DBAppointments.getAppointmentSummary());
+        countCol.setCellValueFactory(new PropertyValueFactory<>("Count"));
+        typesCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        monthCol.setCellValueFactory(new PropertyValueFactory<>("Month"));
     }
 
     /**
@@ -128,4 +148,17 @@ public class ReportsController implements Initializable {
     public void onWeekSelected(ActionEvent event) {
         reportsTableView.setItems(DBAppointments.getWeekAppointments());
     }
+
+    /**
+     *
+     */
+    public void onTotalCustomerAppointmentsSelected(ActionEvent event) {
+        totalCustomerAppointmentsTableView.setItems(DBAppointments.getAppointmentSummary());
+
+    }
+
+    public void onScheduleByContactSelected(ActionEvent event) {
+    }
+
+
 }
