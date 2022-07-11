@@ -231,7 +231,7 @@ public class DBAppointments {
         return appointmentList;
     }
 
-    public static Boolean isOverlapAppointment (int appointmentId, LocalDateTime start, LocalDateTime end, String customerId) {
+    public static boolean isOverlapAppointment (int appointmentId, LocalDateTime start, LocalDateTime end, String customerId) {
 
         // if new or edit, appointment id will be different than what is sent to be conflict.
         String sql = "SELECT * FROM appointments WHERE Appointment_ID != " + appointmentId +
@@ -328,7 +328,6 @@ public class DBAppointments {
 
             ResultSet rs = ps.executeQuery();
 
-
             // if a result is returned, loop through and compare appointment times to current time. Adjusted for timezones.
             while (rs.next()) {
 
@@ -348,4 +347,27 @@ public class DBAppointments {
         }
         return "No appointments starting within the next 15 minutes."; // no appointment found in next 15 minutes
     }
+
+    public static String getCustomerAppointmentsByTypeAndMonth() {
+        String returnString ="";
+        try {
+
+            String sql = "SELECT count(appointment_id) as count, type, MONTHNAME(start) as month FROM client_schedule.appointments GROUP BY 2, 3 ORDER BY 2, 3";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                returnString += rs.getString("count") + " " + rs.getString("type") + " " + rs.getString("month") + "\n";
+            }
+            System.out.println(returnString);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnString;
+    }
+
+//    public static ObservableList<Appointments> getScheduleByContact
 }
