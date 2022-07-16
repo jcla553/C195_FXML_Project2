@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,11 +18,11 @@ import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -32,8 +31,9 @@ public class ReportsController implements Initializable {
     public RadioButton monthRadioBtn;
     public RadioButton weekRadioBtn;
     public Button CancelBtn;
-    public RadioButton totalCustomerAppointmentsRadioBtn;
-    public RadioButton scheduleByContactRadioBtn;
+    public Button reportF1Btn;
+    public Button reportF2Btn;
+    public Button reportF3Btn;
     Stage stage;
     Parent scene;
 
@@ -64,17 +64,6 @@ public class ReportsController implements Initializable {
     @FXML
     private TableColumn<Appointments, Integer> contactIDCol;
 
-    // additional table
-    @FXML
-    private TableView<String> totalCustomerAppointmentsTableView;
-    @FXML
-    private TableColumn<List, String> countCol;
-    @FXML
-    private TableColumn<List, String> typesCol;
-    @FXML
-    private TableColumn<List, String> monthCol;
-
-
     /**
      * Moved the Alert creation into a method to allow a single line call.
      * @param contentText The context appropriate message for the user.
@@ -83,6 +72,20 @@ public class ReportsController implements Initializable {
     public void popupError(String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
+
+    /**
+     * Moved the Alert creation into a method to allow a single line call.
+     * @param contentText The context appropriate message for the user.
+     */
+    @FXML
+    public void popupInfo(String contentText) {
+        ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(rb.getString("InfoDialog"));
         alert.setContentText(contentText);
         alert.showAndWait();
     }
@@ -103,11 +106,6 @@ public class ReportsController implements Initializable {
         userIDCol.setCellValueFactory(new PropertyValueFactory<>("User_ID"));
         contactIDCol.setCellValueFactory(new PropertyValueFactory<>("Contact_ID"));
 
-        //populate the Appointment Count table
-        totalCustomerAppointmentsTableView.setItems(DBAppointments.getAppointmentSummary());
-        countCol.setCellValueFactory(new PropertyValueFactory<>("Count"));
-        typesCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
-        monthCol.setCellValueFactory(new PropertyValueFactory<>("Month"));
     }
 
     /**
@@ -149,16 +147,21 @@ public class ReportsController implements Initializable {
         reportsTableView.setItems(DBAppointments.getWeekAppointments());
     }
 
+//    public void onReportF1Btn(ActionEvent actionEvent) {
+//    }
+
     /**
-     *
+     * total number of customer appointments by type and month
+     * @param event btn click
      */
-    public void onTotalCustomerAppointmentsSelected(ActionEvent event) {
-        totalCustomerAppointmentsTableView.setItems(DBAppointments.getAppointmentSummary());
-
+    public void onReportF1Btn(ActionEvent event) {
+        popupInfo(DBAppointments.getCustomerAppointmentsByTypeAndMonth());
     }
 
-    public void onScheduleByContactSelected(ActionEvent event) {
+    public void onReportF2Btn(ActionEvent event) {
+        popupInfo(DBAppointments.getScheduleByContact());
     }
 
-
+    public void onReportF3Btn(ActionEvent event) {
+    }
 }

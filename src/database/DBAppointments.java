@@ -59,8 +59,8 @@ public class DBAppointments {
         return appointmentList;
     }
 
-    public static void addAppointment(int appointmentId, String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end,
-                                      String customerId, String userId, int contactId) {
+    public static boolean addAppointment(int appointmentId, String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end,
+                                         String customerId, String userId, int contactId) {
 
         //create the query
         String sql = "Insert into appointments (Title, Description, Location, Type, "
@@ -83,8 +83,10 @@ public class DBAppointments {
         } catch (SQLException throwables) {
             System.out.println("Insert Failed");
             throwables.printStackTrace();
+            return false;
         }
 
+        return true; // success
     }
 
 
@@ -127,6 +129,7 @@ public class DBAppointments {
 
         //create the query
         String sql = "DELETE FROM appointments WHERE Appointment_ID = " + appointmentID;
+        String commit = "Commit";
         System.out.println("deleteAppointment sql: " + sql);
 
         // Use query
@@ -228,7 +231,7 @@ public class DBAppointments {
         return appointmentList;
     }
 
-    public static Boolean isOverlapAppointment (int appointmentId, LocalDateTime start, LocalDateTime end, String customerId) {
+    public static boolean isOverlapAppointment (int appointmentId, LocalDateTime start, LocalDateTime end, String customerId) {
 
         // if new or edit, appointment id will be different than what is sent to be conflict.
         String sql = "SELECT * FROM appointments WHERE Appointment_ID != " + appointmentId +
@@ -287,6 +290,7 @@ public class DBAppointments {
         LocalDateTime ldtEnd   = LocalDateTime.of(startDate, endTime) ;
 
 //        Apply a time zone if you are certain it was intended for this input.
+        ZoneId z = ZoneId.of( "America/New_York" ) ;
         ZonedDateTime zdtStart = ZonedDateTime.of(ldtStart, ZoneId.of("America/New_York"));
         ZonedDateTime zdtEnd   = ZonedDateTime.of(ldtEnd,   ZoneId.of("America/New_York"));
 
@@ -324,7 +328,6 @@ public class DBAppointments {
 
             ResultSet rs = ps.executeQuery();
 
-
             // if a result is returned, loop through and compare appointment times to current time. Adjusted for timezones.
             while (rs.next()) {
 
@@ -343,73 +346,5 @@ public class DBAppointments {
 
         }
         return "No appointments starting within the next 15 minutes."; // no appointment found in next 15 minutes
-    }
-
-    public static ObservableList<String> getAppointmentSummary() {
-
-        System.out.println("called getAppointmentSummary");
-
-        ObservableList<String> list = FXCollections.observableArrayList();
-
-        try {
-
-            // create query to roll up data
-            String sql = "SELECT COUNT(Appointment_ID) as Count, Type, MONTHNAME(Start) as Month FROM client_schedule.appointments GROUP BY 2,3";
-
-            // connects to the database
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
-            // get the results set
-            ResultSet rs = ps.executeQuery();
-
-            // walk through the results set
-            while (rs.next()){
-                int appointmentId = rs.getInt("Count");
-                System.out.println("Count: " + appointmentId);
-
-                String type = rs.getString("Type");
-                System.out.println("Type: " + type);
-
-                String month = rs.getString("Month");
-                System.out.println("Month: " + month);
-
-//                String title = null;  // using to band-aid fix data type issue
-//                String title = null;  // using to band-aid fix data type issue
-//                Timestamp start = null;
-//
-//                String description = null;
-//                String location = null;
-//                Timestamp end = null;
-//                Timestamp createDate = null;
-//                String createdBy = null;
-//                Timestamp lastUpdate = null;
-//                String lastUpdatedBy = null;
-//                int customerId = 0;
-//                int userId = 0;
-//                int contactId = 0;
-
-//                Appointments A = new Appointments(appointmentId, title, description, location, type, start, end,
-//                        createDate, createdBy, lastUpdate, lastUpdatedBy, customerId, userId, contactId);
-
-//                appointmentList2.add(A);
-
-//                List A = new List(appointmentId, type, month);
-
-
-
-
-                list.add(appointmentId, type, month);
-
-                System.out.println("should have summary now");
-            }
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        System.out.println("reached end");
-
-        return list;
     }
 }
