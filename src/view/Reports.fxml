@@ -30,7 +30,7 @@
    <Button fx:id="reportF1Btn" layoutX="265.0" layoutY="60.0" mnemonicParsing="false" onAction="#onReportF1Btn" text="Report F1" />
    <Label layoutX="354.0" layoutY="64.0" text="Total number of customer apointments by type and month" />
    <Button fx:id="reportF2Btn" layoutX="265.0" layoutY="87.0" mnemonicParsing="false" onAction="#onReportF2Btn" text="Report F2" />
-   <Label layoutX="354.0" layoutY="91.0" text="Schedule by Customer ID" />
+   <Label layoutX="354.0" layoutY="91.0" text="Schedule by Contact" />
    <Button fx:id="reportF3Btn" layoutX="265.0" layoutY="114.0" mnemonicParsing="false" onAction="#onReportF3Btn" text="Report F3" />
    <Label layoutX="354.0" layoutY="118.0" text="additional Report - TBD" />
 </AnchorPane>

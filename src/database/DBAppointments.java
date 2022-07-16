@@ -370,4 +370,33 @@ public class DBAppointments {
     }
 
 //    public static ObservableList<Appointments> getScheduleByContact
+    public static String getScheduleByContact() {
+        String returnString ="SCHEDULE BY CONTACT \n Sorted by Customer_ID, Start \n";
+        try {
+
+            String sql = "SELECT Appointment_ID, Title, Type, Description, Start, End, Customer_ID FROM client_schedule.appointments order by Customer_ID, Start";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                returnString += rs.getString("Appointment_ID") + " " +
+                        rs.getString("Title") + " " +
+                        rs.getString("Type") + " " +
+                        rs.getString("Description") + " " +
+                        rs.getString("Start") + " " +
+                        rs.getString("End") + " " +
+                        rs.getString("Customer_ID") + " " +
+                        "\n";
+            }
+            System.out.println(returnString);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnString;
+    }
+
+
 }
