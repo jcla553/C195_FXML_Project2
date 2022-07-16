@@ -347,4 +347,56 @@ public class DBAppointments {
         }
         return "No appointments starting within the next 15 minutes."; // no appointment found in next 15 minutes
     }
+
+    public static String getCustomerAppointmentsByTypeAndMonth() {
+        String returnString ="";
+        try {
+
+            String sql = "SELECT count(appointment_id) as count, type, MONTHNAME(start) as month FROM client_schedule.appointments GROUP BY 2, 3 ORDER BY 2, 3";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                returnString += rs.getString("count") + " " + rs.getString("type") + " " + rs.getString("month") + "\n";
+            }
+            System.out.println(returnString);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnString;
+    }
+
+//    public static ObservableList<Appointments> getScheduleByContact
+    public static String getScheduleByContact() {
+        String returnString ="SCHEDULE BY CONTACT \n Sorted by Customer_ID, Start \n";
+        try {
+
+            String sql = "SELECT Appointment_ID, Title, Type, Description, Start, End, Customer_ID FROM client_schedule.appointments order by Customer_ID, Start";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                returnString += rs.getString("Appointment_ID") + " " +
+                        rs.getString("Title") + " " +
+                        rs.getString("Type") + " " +
+                        rs.getString("Description") + " " +
+                        rs.getString("Start") + " " +
+                        rs.getString("End") + " " +
+                        rs.getString("Customer_ID") + " " +
+                        "\n";
+            }
+            System.out.println(returnString);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnString;
+    }
+
+
 }
