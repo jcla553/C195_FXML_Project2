@@ -17,8 +17,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Countries;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -130,10 +134,12 @@ public class LoginScreenController implements Initializable {
             System.out.println("isValid = " + isValid);
 
         if (isValid == 1) {
+            // log attempt
+            loginLogger(userName, true);
             // check upcoming appointments
             String ifConflict = DBAppointments.isNextAppointmentIn15Minutes(userName);
 //            if (DBAppointments.isNextAppointmentIn15Minutes(userName)) {
-                popupInfo(ifConflict);
+            popupInfo(ifConflict);
 //            } else {
 //                popupInfo("No appointments starting within the next 15 minutes.");
 //            }
@@ -141,6 +147,7 @@ public class LoginScreenController implements Initializable {
             // go to the Main Page
             gotoPage(event, "/view/MainPage.fxml");
         } else if (isValid <= 0) {
+            loginLogger(userName, false);
             popupError(rb.getString("loginErrorMsg"));
         }
 
@@ -194,6 +201,31 @@ public class LoginScreenController implements Initializable {
         alert.setTitle(rb.getString("InfoDialog"));
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+
+    public void loginLogger(String userName, boolean loginSuccess) throws IOException {
+        String filename = "loginHistory.txt";
+
+        // open an output stream
+        PrintWriter out = new PrintWriter(
+                          new BufferedWriter(
+                          new FileWriter(filename, true)));
+
+        String loginSuccessString;
+        // success string
+        if (loginSuccess) {
+            loginSuccessString = "provided   valid credentials.";
+        } else {
+            loginSuccessString = "provided invalid credentials.";
+        }
+
+
+        // write data to the stream
+        out.println(Timestamp.from(Instant.now()) + "\t User: " + userName + " " + loginSuccessString);
+
+        // close the output stream
+        out.close();
+
     }
 
 
