@@ -1,7 +1,15 @@
 package model;
-
+/**
+ * The Countries model class.
+ */
 public class Countries {
+    /**
+     * The unique identifier.
+     */
     private int id;
+    /**
+     * The country name.
+     */
     private String name;
 
     /**

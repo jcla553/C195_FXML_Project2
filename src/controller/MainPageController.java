@@ -10,16 +10,46 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The main page controller class.
+ */
 public class MainPageController {
 
+    /**
+     * The add customer button on the fxml page.
+     */
     public Button addCustomerBtn;
+    /**
+     * The main page button on the fxml page.
+     */
     public Button mainPageBtn;
+    /**
+     * The edit custyomer button on the fxml page.
+     */
     public Button editCustomerBtn;
+    /**
+     * The add appointments button on the fxml page.
+     */
     public Button addAppointmentBtn;
+    /**
+     * The exit button on the fxml page.
+     */
     public Button exitBtn;
+    /**
+     * The edit appointments button on the fxml page.
+     */
     public Button editAppointmentBtn;
+    /**
+     * The reports button on the fxml page.
+     */
     public Button reportsBtn;
+    /**
+     * fxml step
+     */
     Stage stage;
+    /**
+     * fxml step
+     */
     Parent scene;
 
     /**
@@ -74,6 +104,11 @@ public class MainPageController {
         gotoPage(event, "/view/EditAppointment.fxml");
     }
 
+    /**
+     * Navigate to the Reports screen.
+      * @param event The button press event
+     * @throws IOException if target .fxml is missing.
+     */
     public void onReports(ActionEvent event) throws IOException {
         gotoPage(event, "/view/Reports.fxml");
     }

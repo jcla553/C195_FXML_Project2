@@ -4,8 +4,17 @@ package model;
  * This model class creates the constructor, and all of the getters and setters.
  */
 public class Users {
+    /**
+     * The user id.
+     */
     private int userId;
+    /**
+     * The user name.
+     */
     private String userName;
+    /**
+     * The password.
+     */
     private String password;
 
 

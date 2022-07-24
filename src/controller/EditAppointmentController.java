@@ -29,67 +29,149 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The edit appointment controller class.
+ */
 public class EditAppointmentController implements Initializable {
 
+    /**
+     * fxml step
+     */
     Stage stage;
+    /**
+     * fxml step
+     */
     Parent scene;
 
+    /**
+     * The anchor pane for the edit appointment page.
+     */
     @FXML
     private AnchorPane editAppointmentAnchorPane;
 
-    // Edit field objects
+    /**
+     * Disabled text field, holds appointment id.
+     */
     @FXML
     private TextField appointmentIdTxt;
+    /**
+     * Data entry field for appointment title.
+     */
     @FXML
     private TextField titleTxt;
+    /**
+     * Data entry field for appointment description.
+     */
     @FXML
     private TextField descriptionTxt;
+    /**
+     * Data entry field for appointment location.
+     */
     @FXML
     private TextField locationTxt;
+    /**
+     * Data entry field for appointment type.
+     */
     @FXML
     private TextField typeTxt;
+    /**
+     * Data selection field for appointment contact
+     */
     @FXML
     private ComboBox<Contacts> contactComboBox;
-    @FXML
+    /**
+     * Data entry for appointment start date.
+     */
     private DatePicker startDatePicker;
+    /**
+     * Data entry for appointment start time.
+     */
     @FXML
     private TextField startTimeTxt;
-    @FXML
+    /**
+     * Data entry for appointment hour end.
+     */
     private TextField endTimeTxt;
-    @FXML
+    /**
+     * Data entry field for appointment customer id.
+     */
     private TextField customerIDTxt;
 
-
-    // Data Table Objects
+    /**
+     * Table Object.
+     */
     @FXML
     private TableView<Appointments> editAppointmentTableView;
+    /**
+     * Object in table for the title column.
+     */
     @FXML
     private TableColumn<Appointments, String> titleCol;
+    /**
+     * Object in table for the description column.
+     */
     @FXML
     private TableColumn<Appointments, String> descriptionCol;
+    /**
+     * Object in table for the location column.
+     */
     @FXML
     private TableColumn<Appointments, String> locationCol;
+    /**
+     * Object in table for the type column.
+     */
     @FXML
     private TableColumn<Appointments, String> typeCol;
+    /**
+     * Object in table for the start column.
+     */
     @FXML
     private TableColumn<Appointments, String> startCol;
+    /**
+     * Object in table for the end column.
+     */
     @FXML
     private TableColumn<Appointments, String> endCol;
+    /**
+     * Object in table for the create date column.
+     */
     @FXML
     private TableColumn<Appointments, String> createDateCol;
+    /**
+     * Object in table for the created by column.
+     */
     @FXML
     private TableColumn<Appointments, String> createdByCol;
+    /**
+     * Object in table for the last updated column.
+     */
     @FXML
     private TableColumn<Appointments, String> lastUpdateCol;
+    /**
+     * Object in table for the last updated by column.
+     */
     @FXML
     private TableColumn<Appointments, String> lastUpdatedByCol;
+    /**
+     * Object in table for the customer id column.
+     */
     @FXML
     private TableColumn<Appointments, Integer> customerIDCol;
+    /**
+     * Object in table for the user id column.
+     */
     @FXML
     private TableColumn<Appointments, Integer> userIDCol;
+    /**
+     * Object in table for the contact id column.
+     */
     @FXML
     private TableColumn<Appointments, Integer> contactIDCol;
 
+    /**
+     * Listens for an appointment record to be selected.
+     * @param mouseEvent The record selection event.
+     */
     public void onRecordSelection(MouseEvent mouseEvent) {
         Appointments selectedAppointment = editAppointmentTableView.getSelectionModel().getSelectedItem();
 
@@ -134,10 +216,10 @@ public class EditAppointmentController implements Initializable {
         LocalTime my5 = my4.toLocalTime();
         System.out.println("my5 = " + my5);
 
-        Integer my5ish = my5.getHour();
+        int my5ish = my5.getHour();
         System.out.println("my5ish = " + my5ish);
 
-        startTimeTxt.setText(my5ish.toString());
+        startTimeTxt.setText(Integer.toString(my5ish));
 
         // build again for endTimeTxt
         LocalDateTime my6 = endTimeTimestamp.toLocalDateTime();
@@ -145,9 +227,9 @@ public class EditAppointmentController implements Initializable {
         ZonedDateTime my8 = my7.withZoneSameInstant(ZoneId.systemDefault());
         LocalDateTime my9 = my8.toLocalDateTime();
         LocalTime my10 = my9.toLocalTime();
-        Integer my10ish = my10.getHour();
+        int my10ish = my10.getHour();
 
-        endTimeTxt.setText(my10ish.toString());
+        endTimeTxt.setText(Integer.toString(my10ish));
 
     }
 
@@ -185,7 +267,11 @@ public class EditAppointmentController implements Initializable {
         // provide values for contactsComboBox
         contactComboBox.setItems(DBContacts.getAllContacts());
     }
-
+    /**
+     * Performs action when the save button is clicked.
+     * @param event The button press event.
+     * @throws IOException for failure condition.
+     */
     @FXML
     public void onSaveButtonAction(ActionEvent event) throws IOException {
         String appointmentId = appointmentIdTxt.getText();
@@ -227,11 +313,13 @@ public class EditAppointmentController implements Initializable {
             DBAppointments.updateAppointment(appointmentId, title, description, location, type, startTime, endTime, customerId, userId, contactId);
             gotoPage(event, "/view/EditAppointment.fxml");
         }
-
-
-
     }
 
+    /**
+     * Performs action when the delete button is clicked.
+     * @param event button press.
+     * @throws IOException when failure encountered.
+     */
     public void onDeleteButtonAction(ActionEvent event) throws IOException {
         Appointments isItSelected = editAppointmentTableView.getSelectionModel().getSelectedItem();
         if (isItSelected == null){

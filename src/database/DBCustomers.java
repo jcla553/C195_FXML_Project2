@@ -7,9 +7,15 @@ import model.Customers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * The DB Customers database class.
+ */
 public class DBCustomers {
 
+    /**
+     * Query the database for all customers.
+     * @return The ObservableList.
+     */
     public static ObservableList<Customers> getAllCustomers(){
 
         ObservableList<Customers> customerList = FXCollections.observableArrayList();
@@ -50,6 +56,10 @@ public class DBCustomers {
 
     }
 
+    /**
+     * Query the database for a selected list of customers.
+     * @return The ObservableList.
+     */
     public static ObservableList<Customers> getFilteredCustomers(){
 
         ObservableList<Customers> customerList = FXCollections.observableArrayList();
@@ -97,6 +107,16 @@ public class DBCustomers {
 
     }
 
+    /**
+     * Add a Customer to the database.
+     * @param customerName The Customer Name.
+     * @param address The customer address.
+     * @param postalCode The customer postal code.
+     * @param divisionCode The customer division code.
+     * @param phoneNumber The customer phone number.
+     * @param country The customer country.
+     * @return Success boolean.
+     */
     public static boolean addCustomer(String customerName, String address,
                                       String postalCode, int divisionCode, String phoneNumber, int country) {
 
@@ -126,7 +146,6 @@ public class DBCustomers {
     /**
      * Remove a customer record
      * @param customerID The primary key value to ensure single record deletion.
-     * @return success value.
      */
     public static void deleteCustomer(int customerID){
 
@@ -165,8 +184,8 @@ public class DBCustomers {
 
     }
 
-    /** Edit a customer record to update location or contact details.
-     *
+    /**
+     * Edit a customer record to update location or contact details.
      * @param customerId  The primary key to identify the update.
      * @param customerName The name of the customer.
      * @param address The address of the customer.

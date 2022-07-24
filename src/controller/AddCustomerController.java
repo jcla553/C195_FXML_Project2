@@ -25,38 +25,75 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//import static main.Main.customerSequence;
-
+/**
+ * Controller for the Add Customer Page.
+ */
 public class AddCustomerController implements Initializable {
 
+    /**
+     * fxml step
+     */
     Stage stage;
+    /**
+     * fxml step
+     */
     Parent scene;
 
+    /**
+     * Save button object.
+     */
     public Button SaveBtn;
+    /**
+     * Cancel button object.
+     */
     public Button CancelBtn;
 
+    /**
+     * Object to contain the page objects.
+     */
     @FXML
     private AnchorPane addCustomerAnchorPane;
 
     // customerSequence is used for new customerId values.
+    /**
+     * Disabled text field.
+     */
     @FXML
     private TextField customerIdTxt;
 
+    /**
+     * Data entry field for customer name.
+     */
     @FXML
     private TextField customerNameTxt;
 
+    /**
+     * Data entry field for customer address.
+     */
     @FXML
     private TextField addressTxt;
 
+    /**
+     * Data entry field for customer postal code.
+     */
     @FXML
     private TextField postalCodeTxt;
 
+    /**
+     * Data entry field for customer phone number.
+     */
     @FXML
     private TextField phoneTxt;
 
+    /**
+     * Data entry field for customer division (state, territory, etc).
+     */
     @FXML
     private ComboBox<Division> divisionsComboBox;
 
+    /**
+     * Data entry field for customer country.
+     */
     @FXML
     private ComboBox<Countries> countriesComboBox;
 

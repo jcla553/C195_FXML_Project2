@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
-
+/**
+ * The DB Appointments database class.
+ */
 public class DBAppointments {
 
     /**
@@ -59,6 +61,20 @@ public class DBAppointments {
         return appointmentList;
     }
 
+    /**
+     * Constructor for the DBAppointments class.
+     * @param appointmentId Unique identifier.
+     * @param title Appointment title.
+     * @param description Appointment description.
+     * @param location Appointment location.
+     * @param type Appointment type.
+     * @param start Appointment start date.
+     * @param end Appointment end date.
+     * @param customerId Appointment customer id.
+     * @param userId Appointment user id.
+     * @param contactId Appointment contact id.
+     * @return A boolean success value.
+     */
     public static boolean addAppointment(int appointmentId, String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end,
                                          String customerId, String userId, int contactId) {
 
@@ -89,7 +105,19 @@ public class DBAppointments {
         return true; // success
     }
 
-
+    /**
+     * Update the appointment with new values.
+     * @param appointmentId The appointment id.
+     * @param title The appointment title.
+     * @param description The appointment description.
+     * @param location The appointment location.
+     * @param type The appointment type.
+     * @param startTime The appointment start time.
+     * @param endTime The appointment end time.
+     * @param customerId The appointment customer id.
+     * @param userId The appointment user id.
+     * @param contactId The appointment contact id.
+     */
     public static void updateAppointment(String appointmentId, String title, String description, String location, String type,
                                          ZonedDateTime startTime, ZonedDateTime endTime, String customerId, String userId, int contactId) {
 
@@ -125,6 +153,10 @@ public class DBAppointments {
 
     }
 
+    /**
+     * Delete the selected appointment.
+     * @param appointmentID The ID of the appointment.
+     */
     public static void deleteAppointment(int appointmentID){
 
         //create the query
@@ -147,6 +179,10 @@ public class DBAppointments {
 
     }
 
+    /**
+     * Get results for reporting by month.
+     * @return The reporting results observable.
+     */
     public static ObservableList<Appointments> getMonthAppointments() {
         ObservableList<Appointments> appointmentList = FXCollections.observableArrayList();
 
@@ -188,7 +224,10 @@ public class DBAppointments {
 
         return appointmentList;
     }
-
+    /**
+     * Get results for reporting by week.
+     * @return The reporting results observable.
+     */
     public static ObservableList<Appointments> getWeekAppointments() {
         ObservableList<Appointments> appointmentList = FXCollections.observableArrayList();
 
@@ -231,6 +270,14 @@ public class DBAppointments {
         return appointmentList;
     }
 
+    /**
+     * Check if appointment time is available.
+     * @param appointmentId The appointment being compared, so it is exluced from comparison.
+     * @param start Proposed appointment start time.
+     * @param end Proposed appointment end time.
+     * @param customerId The appointment customer id.
+     * @return The boolean result.
+     */
     public static boolean isOverlapAppointment (int appointmentId, LocalDateTime start, LocalDateTime end, String customerId) {
 
         // if new or edit, appointment id will be different than what is sent to be conflict.
@@ -280,6 +327,13 @@ public class DBAppointments {
         return false;
     }
 
+    /**
+     * Determine if appointment is within time allowed.
+     * @param startDate Start date entered by user.
+     * @param startTime Start time entered by user.
+     * @param endTime End time entered by user.
+     * @return the boolean result.
+     */
     public static boolean isDuringBusinessHours(LocalDate startDate, LocalTime startTime, LocalTime endTime) {
         System.out.println("entered isDuringBusinessHours");
         // EST zone id
@@ -312,6 +366,11 @@ public class DBAppointments {
         return false;
     }
 
+    /**
+     * Warn user of appointment starting very soon.
+     * @param userName The user logging into the system.
+     * @return String stating results of inquiry.
+     */
     public static String isNextAppointmentIn15Minutes(String userName) {
 
         try {
@@ -348,6 +407,10 @@ public class DBAppointments {
         return "No appointments starting within the next 15 minutes."; // no appointment found in next 15 minutes
     }
 
+    /**
+     * Gather results for reporting.
+     * @return The built report string.
+     */
     public static String getCustomerAppointmentsByTypeAndMonth() {
         String returnString ="";
         try {
@@ -369,7 +432,10 @@ public class DBAppointments {
         return returnString;
     }
 
-//    public static ObservableList<Appointments> getScheduleByContact
+    /**
+     * Gather results for reporting.
+     * @return The built report string.
+     */
     public static String getScheduleByContact() {
         String returnString ="SCHEDULE BY CONTACT \n Sorted by Customer_ID, Start \n";
         try {

@@ -3,21 +3,54 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+/**
+ * The DB Connection database class.
+ */
 public class DBConnection {
 
+    /**
+     * Provide the connection protocol.
+     */
     private static final String protocol = "jdbc";
+    /**
+     * Describe the database vendor.
+     */
     private static final String vendor = ":mysql:";
+    /**
+     * Provide the database host location.
+     */
     private static final String location = "//localhost/";
+    /**
+     * Provide the database name.
+     */
     private static final String databaseName = "client_schedule";
+    /**
+     * Build the jdbc Url.
+     */
     private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
+    /**
+     * Set the database driver.
+     */
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
+    /**
+     * Hard coded database user value.
+     */
     private static final String userName = "sqlUser"; // Username
+    /**
+     * Hard Coded Password (no-no outside here)
+     */
     private static String password = "Passw0rd!"; // Password
+    /**
+     * Connection interface
+     */
     private static Connection connection = null;  // Connection Interface
 //    private static PreparedStatement preparedStatement;
 
-    // run once per session
+
+    /**
+     * Create the connection to the database.
+     * run once per session
+     */
     public static void makeConnection() {
         try {
             Class.forName(driver); // Locate Driver
@@ -30,6 +63,9 @@ public class DBConnection {
         }
     }
 
+    /**
+     * Close the connection.
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -39,16 +75,13 @@ public class DBConnection {
         }
     }
 
-    // use an existing connection
+
+    /**
+     * use an existing connection
+     * @return the connection object.
+     */
     public static Connection getConnection() {
         return connection;
     }
-
-//    public static PreparedStatement getPreparedStatement() throws SQLException {
-//        if (preparedStatement != null)
-//            return preparedStatement;
-//        else System.out.println("Null reference to Prepared Statement");
-//        return null;
-//    }
 
 }

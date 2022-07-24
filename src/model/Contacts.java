@@ -1,10 +1,27 @@
 package model;
-
+/**
+ * The Contacts model class.
+ */
 public class Contacts {
+    /**
+     * Unique identifier for the contacts model.
+     */
     private int contactId;
+    /**
+     * The contact name.
+     */
     private String contactName;
+    /**
+     * The email address.
+     */
     private String email;
 
+    /**
+     * Contacts constructor
+     * @param contactId The unique identifier.
+     * @param contactName The contact name.
+     * @param email The email address.
+     */
     public Contacts(int contactId, String contactName, String email) {
         this.contactId = contactId;
         this.contactName = contactName;

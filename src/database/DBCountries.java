@@ -5,7 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-
+/**
+ * The DB Countries database class.
+ */
 public class DBCountries {
 
     /**

@@ -21,41 +21,84 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the Add Appointment page.
+ * @author James Clark
+ */
 public class AddAppointmentController implements Initializable {
 
+    /**
+     * fxml step
+     */
     Stage stage;
+    /**
+     * fxml step
+     */
     Parent scene;
 
+    /**
+     * Object to contain the page objects.
+     */
     @FXML
     private AnchorPane addAppointmentAnchorPane;
 
+    /**
+     * Disabled text field.
+     */
     @FXML
     private TextField appointmentIdTxt;
 
+    /**
+     * Data entry field for appointment title.
+     */
     @FXML
     private TextField titleTxt;
 
+    /**
+     * Data entry field for appointment description.
+     */
     @FXML
     private TextField descriptionTxt;
 
+    /**
+     * Data entry field for appointment location.
+     */
     @FXML
     private TextField locationTxt;
 
+    /**
+     * Data selection field for appointment contact
+     */
     @FXML
     private ComboBox<Contacts> contactComboBox;
 
+    /**
+     * Data entry field for appointment type.
+     */
     @FXML
     private TextField typeTxt;
 
+    /**
+     * Data entry for appointment start date.
+     */
     @FXML
     private DatePicker startDatePicker;
 
+    /**
+     * Data entry for appointment hour start.
+     */
     @FXML
     private Spinner startTimeSpinner;
 
+    /**
+     * Data entry for appointment hour end.
+     */
     @FXML
     private Spinner endTimeSpinner;
 
+    /**
+     * Data entry field for appointment customer id.
+     */
     @FXML
     private TextField customerIDTxt;
 
@@ -82,6 +125,10 @@ public class AddAppointmentController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Performs action when the save button is clicked.
+     * @param event click event
+     */
     public void onSaveButtonAction(ActionEvent event) {
 //        String appointmentId = appointmentIdTxt.getText();
         String title = titleTxt.getText();
@@ -119,15 +166,6 @@ public class AddAppointmentController implements Initializable {
             DBAppointments.addAppointment(0, title, description, location, type, startTime, endTime, customerId, userId, contactId);
         }
     }
-
-    public static Date dateFromUTC(Date date){
-        return new Date(date.getTime() + Calendar.getInstance().getTimeZone().getOffset(new Date().getTime()));
-    }
-
-    public static Date dateToUTC(Date date){
-        return new Date(date.getTime() - Calendar.getInstance().getTimeZone().getOffset(date.getTime()));
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){

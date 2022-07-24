@@ -7,10 +7,19 @@ import model.Users;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * The DB Users database class.
+ */
 public class DBUsers {
 
+    /**
+     * The current user.
+     */
     private static String currentUser;
+
+    /**
+     * The current user id.
+     */
     private static int currentUserId;
 
     /**
@@ -90,18 +99,34 @@ public class DBUsers {
         return -1; // if we got here, no match
     }
 
+    /**
+     * Set the current user.
+     * @param currentUser The currentUser string.
+     */
     public static void setCurrentUser(String currentUser) {
         DBUsers.currentUser = currentUser;
     }
 
+    /**
+     * Get the current user.
+     * @return the currentUser getter.
+     */
     public static String getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * Set the current user id value.
+     * @param userId The ID value.
+     */
     public static void setCurrentUserId(int userId) {
         DBUsers.currentUserId = userId;
     }
 
+    /**
+     * Get the current user id.
+     * @return the id integer value.
+     */
     public static int getCurrentUserId() {
         return currentUserId;
     }

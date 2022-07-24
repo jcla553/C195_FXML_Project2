@@ -27,37 +27,78 @@ import java.time.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The login screen controller class.
+ */
 public class LoginScreenController implements Initializable {
+    /**
+     * TheLabel object on the fxml page.
+     */
     public Label TheLabel;
+    /**
+     * userName object on the fxml page.
+     */
     public String userName;
 
+    /**
+     * fxml step
+     */
     Stage stage;
+    /**
+     * fxml step
+     */
     Parent scene;
-
+    /**
+     * The User Name field for login.
+     */
     @FXML
     private TextField UserNameTxt;
 
+    /**
+     * The Password field for login.
+     */
     @FXML
     private TextField PasswordTxt;
 
+    /**
+     * The title label on the form.
+     */
     @FXML
     private Label titleLbl;
 
+    /**
+     * The User Name label to direct the user.
+     */
     @FXML
     private Label UserNameLbl;
 
+    /**
+     * The password label to direct the user.
+     */
     @FXML
     private Label PasswordLbl;
 
+    /**
+     * The location label on the form.
+     */
     @FXML
     private Label LocationLbl;
 
+    /**
+     * The zone label on the form.
+     */
     @FXML
     private Label zoneIdLbl;
 
+    /**
+     * The Submit button on the login form.
+     */
     @FXML
     private Button SubmitBtn;
 
+    /**
+     * The cancel button on the login form.
+     */
     @FXML
     private Button CancelBtn;
 
@@ -203,6 +244,12 @@ public class LoginScreenController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Creates log file for history for rubric C.
+     * @param userName The text entered by the user to login.
+     * @param loginSuccess successful login? true or false
+     * @throws IOException when error encountered.
+     */
     public void loginLogger(String userName, boolean loginSuccess) throws IOException {
         String filename = "loginHistory.txt";
 

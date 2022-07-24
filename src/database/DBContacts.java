@@ -7,9 +7,15 @@ import model.Contacts;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * The DB Contacts database class.
+ */
 public class DBContacts {
 
+    /**
+     * Query the database for all the contacts.
+     * @return The ObservableList.
+     */
     public static ObservableList<Contacts> getAllContacts(){
 
         ObservableList<Contacts> contactList = FXCollections.observableArrayList();

@@ -24,47 +24,106 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The edit customer controller class.
+ */
 public class EditCustomerController implements Initializable {
 
+    /**
+     * fxml step
+     */
     Stage stage;
+    /**
+     * fxml step
+     */
     Parent scene;
 
+    /**
+     * Save button on fxml form.
+     */
     public Button SaveBtn;
+    /**
+     * Cancel button on fxml form.
+     */
     public Button CancelBtn;
 
+    /**
+     * anchor pane for the add customer fxml.
+      */
     @FXML
     private AnchorPane addCustomerAnchorPane;
 
     // Edit field objects
     // customerSequence is used for new customerId values.
+    /**
+     * Data entry field for customer id.
+     */
     @FXML
     private TextField customerIdTxt;
+    /**
+     * Data entry field for customer name.
+     */
     @FXML
     private TextField customerNameTxt;
+    /**
+     * Data entry field for customer address.
+     */
     @FXML
     private TextField addressTxt;
+    /**
+     * Data entry field for customer postal code.
+     */
     @FXML
     private TextField postalCodeTxt;
+    /**
+     * Data entry field for customer phone number.
+     */
     @FXML
     private TextField phoneTxt;
+    /**
+     * Data entry field for customer division (state, territory, etc).
+     */
     @FXML
     private ComboBox<Division> divisionsComboBox;
+    /**
+     * Data entry field for customer country.
+     */
     @FXML
     private ComboBox<Countries> countriesComboBox;
 
-    // Data Table objects
+    /**
+     * Table Object.
+     */
     @FXML
     private TableView<Customers> editCustomerTableView;
+    /**
+     * Object in table for the customer name column.
+     */
     @FXML
     private TableColumn<Customers, String> customerNameCol;
+    /**
+     * Object in table for the address column.
+     */
     @FXML
     private TableColumn<Customers, String> addressCol;
+    /**
+     * Object in table for the postal code column.
+     */
     @FXML
     private TableColumn<Customers, String> postalCodeCol;
+    /**
+     * Object in table for the phone column.
+     */
     @FXML
     private TableColumn<Customers, String> phoneCol;
+    /**
+     * Object in table for the division id column.
+     */
     @FXML
     private TableColumn<Customers, Integer> divisionIDCol;
+    /**
+     * Object in table for the division column.
+     */
     @FXML
     private TableColumn<Customers, String> divisionCol;
 
@@ -107,6 +166,10 @@ public class EditCustomerController implements Initializable {
 
     }
 
+    /**
+     * Process for a record being selected in the table.
+     * @param mouseEvent Event of clicking on a record in the table.
+     */
     public void onRecordSelection(MouseEvent mouseEvent) {
         Customers selectedCustomer  = editCustomerTableView.getSelectionModel().getSelectedItem();
 

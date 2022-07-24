@@ -1,6 +1,3 @@
-/** @author James Clark
- * C195 - Software II - Advanced Java Concepts
- */
 package main;
 
 import database.DBConnection;
@@ -13,8 +10,8 @@ import javafx.stage.Stage;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-/** Initial JavaFX call to load the starting screen.
- *
+/**
+ * Initial JavaFX call to load the starting screen.
  */
 public class Main extends Application {
 //    public static int customerSequence;
@@ -43,7 +40,10 @@ public class Main extends Application {
     }
 
 
-
+    /**
+     * This block starts with the app.
+     * @param args The default arguments.
+     */
     public static void main(String[] args) {
         // set sequences
 //        customerSequence = 10;

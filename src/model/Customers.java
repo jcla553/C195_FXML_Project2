@@ -8,17 +8,50 @@ import static database.DBCustomers.getAllCustomers;
  * This model class creates the Customers constructor, and all of the getters and setters.
  */
 public class Customers {
+    /**
+     * Unique identifier.
+     */
     private int customerId;
+    /**
+     * The customer name.
+     */
     private String customerName;
+    /**
+     * The customer addresss.
+     */
     private String address;
+    /**
+     * The postal code.
+     */
     private String postalCode;
+    /**
+     * The phone number.
+     */
     private String phone;
+    /**
+     * The timestamp of customer creation.
+     */
     private String createdDate;
+    /**
+     * Who created the customer.
+     */
     private String createdBy;
+    /**
+     * The last update date.
+     */
     private String lastUpdate;
+    /**
+     * Who updated the customer.
+     */
     private String lastUpdatedBy;
+    /**
+     * The division id.
+     */
     private int divisionId;
 
+    /**
+     * Text description of division.
+     */
     private String division;
 
     /**

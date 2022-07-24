@@ -8,7 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-
+/**
+ * The DB Division database class.
+ */
 public class DBDivision {
 
     /**
@@ -47,6 +49,7 @@ public class DBDivision {
 
     /**
      * Filtered list of Divisions based on Country Selection
+     * @param selectedCountryId The Country Id used to filter the query.
      * @return The list of divisions for the provided country.
      */
     public static ObservableList<Division> getFilteredDivisions(int selectedCountryId) {
@@ -79,6 +82,11 @@ public class DBDivision {
         return dList;
     }
 
+    /**
+     * Query the database for an ID based on division.
+     * @param specificDivision The division selected.
+     * @return The specific id.
+     */
     public static int getCountryID(int specificDivision) {
         ObservableList<Division> dList = FXCollections.observableArrayList();
 

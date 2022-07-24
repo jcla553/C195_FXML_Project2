@@ -2,38 +2,83 @@ package model;
 
 import java.sql.Timestamp;
 
+/**
+ * The Appointments model class.
+ */
 public class Appointments {
+    /**
+     * Unique identifier for the appointment.
+     */
     private int Appointment_ID;
+    /**
+     * Appointment title.
+     */
     private String Title;
+    /**
+     * Appointment description.
+     */
     private String Description;
+    /**
+     * Appointment location.
+     */
     private String Location;
+    /**
+     * Appointment type.
+     */
     private String Type;
-    private Timestamp Start;       // datetime
-    private Timestamp End;         // datetime
-    private Timestamp Create_Date; // datetime
+    /**
+     * Appointment start time.
+     */
+    private Timestamp Start;
+    /**
+     * Appointment end time.
+     */
+    private Timestamp End;
+    /**
+     * Appointment date of creation.
+     */
+    private Timestamp Create_Date;
+    /**
+     * Who created the appointment.
+     */
     private String Created_By;
-    private Timestamp Last_Update; // timestamp
+    /**
+     * The timestamp of the last update.
+     */
+    private Timestamp Last_Update;
+    /**
+     * Who last updated the appointment.
+     */
     private String Last_Updated_By;
+    /**
+     * The customer id used for the appointment.
+     */
     private int Customer_ID;
+    /**
+     * The user id provided for the appointment.
+     */
     private int User_ID;
+    /**
+     * The contact id used for the appointment.
+     */
     private int Contact_ID;
 
     /**
      * Constructor for the Appointments model
-     * @param appointment_ID
-     * @param title
-     * @param description
-     * @param location
-     * @param type
-     * @param start
-     * @param end
-     * @param create_Date
-     * @param created_By
-     * @param last_Update
-     * @param last_Updated_By
-     * @param customer_ID
-     * @param user_ID
-     * @param contact_ID
+     * @param appointment_ID The appointment id.
+     * @param title The appointment title.
+     * @param description The appointment description.
+     * @param location The appointment location.
+     * @param type The appointment type.
+     * @param start The appointment start time.
+     * @param end The appointment end time.
+     * @param create_Date When the appointment was initially created.
+     * @param created_By Who created the appointment.
+     * @param last_Update When the appointment was last modified.
+     * @param last_Updated_By Who modified the appointment.
+     * @param customer_ID The customer id for this appointment.
+     * @param user_ID The user id used.
+     * @param contact_ID The contact id for the appointment.
      */
     public Appointments(int appointment_ID, String title, String description, String location, String type, Timestamp start, Timestamp end,
                         Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By, int customer_ID, int user_ID, int contact_ID) {
@@ -63,7 +108,7 @@ public class Appointments {
 
     /**
      * returns the Appointment_ID value.
-     * @param appointment_ID
+     * @param appointment_ID The unique appointment identifier.
      */
     public void setAppointment_ID(int appointment_ID) {
         Appointment_ID = appointment_ID;
