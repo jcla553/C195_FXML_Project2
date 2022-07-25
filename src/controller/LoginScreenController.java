@@ -179,11 +179,8 @@ public class LoginScreenController implements Initializable {
             loginLogger(userName, true);
             // check upcoming appointments
             String ifConflict = DBAppointments.isNextAppointmentIn15Minutes(userName);
-//            if (DBAppointments.isNextAppointmentIn15Minutes(userName)) {
+
             popupInfo(ifConflict);
-//            } else {
-//                popupInfo("No appointments starting within the next 15 minutes.");
-//            }
 
             // go to the Main Page
             gotoPage(event, "/view/MainPage.fxml");

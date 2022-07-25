@@ -201,6 +201,11 @@ public class ReportsController implements Initializable {
      */
     public void onReportF1Btn(ActionEvent event) {
         popupInfo(DBAppointments.getCustomerAppointmentsByTypeAndMonth());
+//        reportsTableView.setItems(DBAppointments.getCustomerAppointmentsByTypeAndMonth());
+        reportsTableView.setItems(DBAppointments.getAllAppointments());
+
+
+
     }
 
     /**
@@ -209,6 +214,7 @@ public class ReportsController implements Initializable {
      */
     public void onReportF2Btn(ActionEvent event) {
         popupInfo(DBAppointments.getScheduleByContact());
+//        reportsTableView.setItems(DBAppointments.getScheduleByContact());
     }
 
     /**

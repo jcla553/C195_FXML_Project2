@@ -4,6 +4,7 @@ import database.DBAppointments;
 import database.DBContacts;
 import database.DBCustomers;
 import database.DBUsers;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +26,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.*;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
  * The edit appointment controller class.
+ * LAMBDAS move the logic from the query to java.
  */
 public class EditAppointmentController implements Initializable {
 
@@ -352,20 +355,55 @@ public class EditAppointmentController implements Initializable {
      * Filter results to the current month
      * @param event radio btn click is passed along.
      */
-    public void onMonthSelected(ActionEvent event) {
-        editAppointmentTableView.setItems(DBAppointments.getMonthAppointments());
-    }
+//    public void onMonthSelected(ActionEvent event) {
+//        editAppointmentTableView.setItems(DBAppointments.getMonthAppointments());
+//    }
 
     /**
      * Filter results to the current month
      * @param event radio btn click is passed along.
      */
-    public void onWeekSelected(ActionEvent event) {
-        editAppointmentTableView.setItems(DBAppointments.getWeekAppointments());
-    }
+//    public void onWeekSelected(ActionEvent event) {
+//        editAppointmentTableView.setItems(DBAppointments.getWeekAppointments());
+//    }
 
+    /**
+     * Unfilter results
+     * @param event btn click
+     */
     public void getAllAppointments(ActionEvent event) {
         editAppointmentTableView.setItems(DBAppointments.getAllAppointments());
+    }
+
+    /**
+     * Filter with LAMBDA
+     * @param event btn click
+     */
+    public void onWeekSelected(ActionEvent event) {
+        // get the list of all appointments
+        ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
+
+        ObservableList<Appointments> filteredAppointments = allAppointments.filtered(t ->{
+            if (t.getStart().toLocalDateTime().toLocalDate().isAfter(LocalDate.now().minusWeeks(1)))
+                return true;
+            return false; // else
+        });
+        editAppointmentTableView.setItems(filteredAppointments);
+    }
+    /**
+     * Filter with LAMBDA
+     * @param event btn click
+     */
+    public void onMonthSelected(ActionEvent event) {
+        // get the list of all appointments
+        ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
+
+        ObservableList<Appointments> filteredAppointments = allAppointments.filtered(t ->{
+            if (t.getStart().toLocalDateTime().toLocalDate().isAfter(LocalDate.now().minusMonths(1)))
+                return true;
+            return false; // else
+        });
+        editAppointmentTableView.setItems(filteredAppointments);
     }
 
     /**

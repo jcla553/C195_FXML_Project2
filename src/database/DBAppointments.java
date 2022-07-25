@@ -224,6 +224,7 @@ public class DBAppointments {
 
         return appointmentList;
     }
+
     /**
      * Get results for reporting by week.
      * @return The reporting results observable.
