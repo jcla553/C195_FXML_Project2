@@ -146,6 +146,8 @@ public class ReportsController implements Initializable {
     public void popupInfo(String contentText) {
         ResourceBundle rb = ResourceBundle.getBundle("lang/lang", Locale.getDefault());
 
+
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(rb.getString("InfoDialog"));
         alert.setContentText(contentText);
@@ -233,5 +235,6 @@ public class ReportsController implements Initializable {
      * @param event btn click
      */
     public void onReportF3Btn(ActionEvent event) {
+        popupInfo(DBAppointments.getRegions());
     }
 }

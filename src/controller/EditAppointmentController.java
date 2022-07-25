@@ -267,6 +267,7 @@ public class EditAppointmentController implements Initializable {
         // provide values for contactsComboBox
         contactComboBox.setItems(DBContacts.getAllContacts());
     }
+
     /**
      * Performs action when the save button is clicked.
      * @param event The button press event.
@@ -289,13 +290,6 @@ public class EditAppointmentController implements Initializable {
 
         LocalTime startTimeField = LocalTime.of(Integer.parseInt(startTimeTxt.getText()), 0, 0);
         LocalTime endTimeField = LocalTime.of(Integer.parseInt(startTimeTxt.getText()), 0, 0);
-
-        // Make the spinner values actual time.
-//        LocalTime startTimeSpinnerValue = LocalTime.of((Integer) startTimeSpinner.getValue(), 0, 0);
-//        LocalTime endTimeSpinnerValue = LocalTime.of((Integer) endTimeSpinner.getValue(), 0, 0);
-
-//        LocalDateTime nowDateTime = LocalDateTime.now();
-//        System.out.println("nowDateTime: " + nowDateTime);
 
         // Make a ZonedDateTime object
         ZonedDateTime startTime = ZonedDateTime.of(startDate, startTimeField, ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));

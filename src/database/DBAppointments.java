@@ -464,5 +464,30 @@ public class DBAppointments {
         return returnString;
     }
 
+    /**
+     * Gather results for reporting.
+     * @return The built report string.
+     */
+    public static String getRegions() {
+        String returnString ="List of Divisions \n Sorted by Division_ID, Start \n";
+        try {
 
+            String sql = "SELECT Division_ID, Division FROM client_schedule.first_level_divisions order by 1";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                returnString += rs.getString("Division_ID") + " " +
+                        rs.getString("Division") + " " +
+                        "\n";
+            }
+            System.out.println(returnString);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnString;
+    }
 }
