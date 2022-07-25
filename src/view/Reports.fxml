@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="reportsAnchorPane" prefHeight="525.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsController">
+<AnchorPane fx:id="reportsAnchorPane" prefHeight="525.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsController">
    <Button fx:id="CancelBtn" layoutX="182.0" layoutY="15.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
    <Label layoutX="26.0" layoutY="14.0" text="View Reports">
       <font>
@@ -25,8 +25,6 @@
          <TableColumn fx:id="contactIDCol" prefWidth="75.0" text="Contact_ID" />
      </columns>
    </TableView>
-   <RadioButton fx:id="monthRadioBtn" layoutX="26.0" layoutY="64.0" mnemonicParsing="false" onAction="#onMonthSelected" text="View this Month" />
-   <RadioButton fx:id="weekRadioBtn" layoutX="27.0" layoutY="99.0" mnemonicParsing="false" onAction="#onWeekSelected" text="View this Week" />
    <Button fx:id="reportF1Btn" layoutX="265.0" layoutY="60.0" mnemonicParsing="false" onAction="#onReportF1Btn" text="Report F1" />
    <Label layoutX="354.0" layoutY="64.0" text="Total number of customer apointments by type and month" />
    <Button fx:id="reportF2Btn" layoutX="265.0" layoutY="87.0" mnemonicParsing="false" onAction="#onReportF2Btn" text="Report F2" />

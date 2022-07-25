@@ -82,6 +82,7 @@ public class EditAppointmentController implements Initializable {
     /**
      * Data entry for appointment start date.
      */
+    @FXML
     private DatePicker startDatePicker;
     /**
      * Data entry for appointment start time.
@@ -91,10 +92,12 @@ public class EditAppointmentController implements Initializable {
     /**
      * Data entry for appointment hour end.
      */
+    @FXML
     private TextField endTimeTxt;
     /**
      * Data entry field for appointment customer id.
      */
+    @FXML
     private TextField customerIDTxt;
 
     /**
@@ -314,6 +317,7 @@ public class EditAppointmentController implements Initializable {
      * @param event button press.
      * @throws IOException when failure encountered.
      */
+    @FXML
     public void onDeleteButtonAction(ActionEvent event) throws IOException {
         Appointments isItSelected = editAppointmentTableView.getSelectionModel().getSelectedItem();
         if (isItSelected == null){
@@ -345,6 +349,26 @@ public class EditAppointmentController implements Initializable {
     }
 
     /**
+     * Filter results to the current month
+     * @param event radio btn click is passed along.
+     */
+    public void onMonthSelected(ActionEvent event) {
+        editAppointmentTableView.setItems(DBAppointments.getMonthAppointments());
+    }
+
+    /**
+     * Filter results to the current month
+     * @param event radio btn click is passed along.
+     */
+    public void onWeekSelected(ActionEvent event) {
+        editAppointmentTableView.setItems(DBAppointments.getWeekAppointments());
+    }
+
+    public void getAllAppointments(ActionEvent event) {
+        editAppointmentTableView.setItems(DBAppointments.getAllAppointments());
+    }
+
+    /**
      * Navigate to the Main Page.
      * @param event Button Press event.
      * @throws IOException Error possible if target page does not exist.
@@ -366,5 +390,4 @@ public class EditAppointmentController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource(fxmlPagePath));
         stage.setScene(new Scene(scene));
     }
-
 }

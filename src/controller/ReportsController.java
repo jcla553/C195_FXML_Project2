@@ -196,25 +196,6 @@ public class ReportsController implements Initializable {
     }
 
     /**
-     * Filter results to the current month
-     * @param event radio btn click is passed along.
-     */
-    public void onMonthSelected(ActionEvent event) {
-        reportsTableView.setItems(DBAppointments.getMonthAppointments());
-    }
-
-    /**
-     * Filter results to the current month
-     * @param event radio btn click is passed along.
-     */
-    public void onWeekSelected(ActionEvent event) {
-        reportsTableView.setItems(DBAppointments.getWeekAppointments());
-    }
-
-//    public void onReportF1Btn(ActionEvent actionEvent) {
-//    }
-
-    /**
      * total number of customer appointments by type and month
      * @param event btn click
      */

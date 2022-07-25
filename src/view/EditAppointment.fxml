@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="editAppointmentAnchorPane" prefHeight="844.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditAppointmentController">
+<AnchorPane fx:id="editAppointmentAnchorPane" prefHeight="844.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditAppointmentController">
     <GridPane layoutX="14.0" layoutY="57.0" prefHeight="313.0" prefWidth="331.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,4 +70,7 @@
          <TableColumn fx:id="contactIDCol" prefWidth="75.0" text="Contact_ID" />
      </columns>
    </TableView>
+    <Button fx:id="monthRadioBtn" layoutX="425.0" layoutY="60.0" mnemonicParsing="false" onAction="#onMonthSelected" text="View this Month" />
+    <Button fx:id="weekRadioBtn" layoutX="425.0" layoutY="90.0" mnemonicParsing="false" onAction="#onWeekSelected" text="View this Week" />
+    <Button fx:id="allRadioBtn" layoutX="425.0" layoutY="120.0" mnemonicParsing="false" onAction="#getAllAppointments" text="View All" />
 </AnchorPane>
